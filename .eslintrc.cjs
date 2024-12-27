@@ -38,8 +38,7 @@ module.exports = {
     'import/resolver': {
       alias: {
         map: [
-          ['@src', './src'],
-          ['@v2', './src/_v2']
+          ['@', './src'],
         ],
         extensions: ['.js', '.jsx', '.ts', '.tsx'],
       },
@@ -63,9 +62,21 @@ module.exports = {
     '@typescript-eslint/consistent-type-imports': 'error',
     'react/require-default-props': 'off',
     'no-underscore-dangle': 'off',
+    'react/jsx-props-no-spreading': 'off',
     'import/no-extraneous-dependencies': ['error', {
       devDependencies: true,
     }],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "": "never",
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
     'import/order': ['error', {
       'newlines-between': 'always',
       groups: ['builtin', 'external', ['internal', 'parent', 'sibling', 'index'], 'object', 'type'],
