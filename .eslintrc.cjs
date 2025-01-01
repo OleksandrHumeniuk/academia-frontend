@@ -81,6 +81,7 @@ module.exports = {
       'newlines-between': 'always',
       groups: ['builtin', 'external', ['internal', 'parent', 'sibling', 'index'], 'object', 'type'],
     }],
+    "jsx-a11y/anchor-is-valid": "off",
   },
 };
 
