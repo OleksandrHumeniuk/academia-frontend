@@ -10,6 +10,7 @@ import Practice from '@/templates/Practice/Practice';
 import History from '@/templates/History/History';
 import PracticeSection from '@/templates/PracticeSection/PracticeSection';
 import Profile from '@/templates/Profile/Profile';
+import Login from '@/templates/Login/Login';
 
 const App: React.FC = () => {
   return (
@@ -53,6 +54,10 @@ const App: React.FC = () => {
             <Profile />
           </PageLayout>
         }
+      />
+      <Route
+        path="/login"
+        element={<Login />}
       />
       <Route path="/test" element={<TestFlow />} />
       <Route path="/components" element={<Testing />} />

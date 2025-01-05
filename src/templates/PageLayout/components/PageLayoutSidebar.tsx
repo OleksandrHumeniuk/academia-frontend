@@ -1,5 +1,6 @@
 import React from 'react';
 import { BookOpenCheck, ChartSpline, CircleUser, FileClock, LogOut, NotebookText } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 import AppSidebar from '@/components/AppSidebar/AppSidebar';
 import AppLogo from '@/components/AppLogo/AppLogo';
@@ -38,6 +39,12 @@ const data = {
 };
 
 const PageLayoutSidebar: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleLogOut = (): void => {
+    navigate('/login');
+  };
+
   return (
     <AppSidebar className="bg-white">
       <AppSidebar.Header>
@@ -87,7 +94,10 @@ const PageLayoutSidebar: React.FC = () => {
                 </a>
               </AppSidebar.MenuButton>
 
-              <AppSidebar.MenuButton className="w-full justify-start gap-2 text-red-500 hover:bg-red-50 hover:text-red-600 active:bg-red-50 active:text-red-600">
+              <AppSidebar.MenuButton
+                className="w-full justify-start gap-2 text-red-500 hover:bg-red-50 hover:text-red-600 active:bg-red-50 active:text-red-600"
+                onClick={handleLogOut}
+              >
                 <LogOut />
                 Logout
               </AppSidebar.MenuButton>
