@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { BookOpenCheck, NotebookText } from 'lucide-react';
+import { ArrowLeft, BookOpenCheck, NotebookText } from 'lucide-react';
 
 import AppSidebar from '@/components/AppSidebar/AppSidebar';
 import AppSeparator from '@/components/AppSeparator/AppSeparator';
@@ -11,9 +11,10 @@ export type PageLayoutProps = {
   children: React.ReactNode;
   title: string;
   actions?: boolean;
+  backActions?: boolean;
 };
 
-const PageLayout: React.FC<PageLayoutProps> = ({ children, title, actions }) => {
+const PageLayout: React.FC<PageLayoutProps> = ({ children, title, actions, backActions }) => {
   return (
     <div className="h-screen">
       <AppSidebar.Provider>
@@ -36,12 +37,21 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children, title, actions }) => 
                 </AppButton>
 
                 <AppButton variant="outline" className="flex w-[180px] items-center gap-2" asChild>
-                  <Link to="/test">
+                  <Link to="/practice">
                     <NotebookText className="size-5" />
                     Practice
                   </Link>
                 </AppButton>
               </div>
+            )}
+
+            {backActions && (
+              <AppButton variant="ghost" className="flex w-[180px] items-center gap-2" asChild>
+                <Link to="/practice">
+                  <ArrowLeft className="size-5" />
+                  Back to Categories
+                </Link>
+              </AppButton>
             )}
           </header>
 

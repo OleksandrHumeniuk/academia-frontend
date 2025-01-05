@@ -14,6 +14,8 @@ export default {
   		},
   		colors: {
 				background: 'hsl(var(--background))',
+				foreground: 'hsl(var(--foreground))',
+				primary: 'hsl(var(--primary))',
   			sidebar: {
   				DEFAULT: 'white',
   				foreground: 'hsl(var(--sidebar-foreground))',

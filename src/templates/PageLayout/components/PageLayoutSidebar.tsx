@@ -9,27 +9,29 @@ const data = {
   navMain: [
     {
       title: 'Dashboard',
-      url: '#',
+      url: '/',
       icon: ChartSpline,
       isActive: true,
     },
     {
       title: 'Test',
-      url: '#',
+      url: '/test',
       icon: BookOpenCheck,
     },
     {
       title: 'Practice',
-      url: '#',
+      url: '/practice',
       icon: NotebookText,
       items: [
-        { title: 'Vocabulary', url: '#' },
-        { title: 'Grammar', url: '#' },
+        { title: 'Vocabulary', url: '/practice/vocabulary' },
+        { title: 'Grammar', url: '/practice/grammar' },
+        { title: 'Reading', url: '/practice/reading' },
+        { title: 'Writing', url: '/practice/writing' },
       ],
     },
     {
       title: 'History',
-      url: '#',
+      url: '/history',
       icon: FileClock,
     },
   ],
@@ -42,7 +44,7 @@ const PageLayoutSidebar: React.FC = () => {
         <AppSidebar.Menu>
           <AppSidebar.MenuItem>
             <AppSidebar.MenuButton size="lg" asChild>
-              <a href="#">
+              <a href="/">
                 <AppLogo />
               </a>
             </AppSidebar.MenuButton>

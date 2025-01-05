@@ -6,6 +6,8 @@ import Dashboard from '@/templates/Dashboard/Dashboard';
 import TestFlow from '@/templates/TestFlow/TestFlow';
 import TestResults from '@/templates/TestResults/TestResults';
 import Testing from '@/templates/Testing/Testing';
+import Practice from '@/templates/Practice/Practice';
+import PracticeSection from '@/templates/PracticeSection/PracticeSection';
 
 const App: React.FC = () => {
   return (
@@ -15,6 +17,22 @@ const App: React.FC = () => {
         element={
           <PageLayout title="Dashboard" actions>
             <Dashboard />
+          </PageLayout>
+        }
+      />
+      <Route
+        path="/practice"
+        element={
+          <PageLayout title="Practice">
+            <Practice />
+          </PageLayout>
+        }
+      />
+      <Route
+        path="/practice/:section"
+        element={
+          <PageLayout title="Practice" backActions>
+            <PracticeSection />
           </PageLayout>
         }
       />
