@@ -1,10 +1,10 @@
 import React from 'react';
-import { Book, Code } from 'lucide-react';
 
 import AppCard from '@/components/AppCard/AppCard';
-import AppProgress from '@/components/AppProgress/AppProgress';
 import ProficiencyProgress from '@/containers/ProficiencyProgress/ProficiencyProgress';
 import SkillsRadarChart from '@/containers/SkillsRadarChart/SkillsRadarChart';
+import PracticeCard from '@/containers/PracticeCard/PracticeCard';
+import { MOCK_PRACTICE_SECTIONS } from '@/constants/practice';
 
 const Dashboard: React.FC = () => {
   return (
@@ -47,43 +47,9 @@ const Dashboard: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <AppCard className="cursor-pointer bg-white p-6 transition-shadow hover:shadow-md">
-            <div className="mb-4 flex items-center gap-4">
-              <Code className="text-primary size-8" />
-              <div>
-                <h3 className="text-lg font-medium">Grammar</h3>
-                <p className="text-sm text-gray-500">32 of 50 exercises completed</p>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Progress</span>
-                <span className="font-medium">{Math.round(32 / 50)}%</span>
-              </div>
-
-              <AppProgress value={Math.round(32 / 50)} className="h-2" />
-            </div>
-          </AppCard>
-
-          <AppCard className="cursor-pointer bg-white p-6 transition-shadow hover:shadow-md">
-            <div className="mb-4 flex items-center gap-4">
-              <Book className="text-primary size-8" />
-              <div>
-                <h3 className="text-lg font-medium">Vocabulary</h3>
-                <p className="text-sm text-gray-500">24 of 50 exercises completed</p>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span className="text-gray-500">Progress</span>
-                <span className="font-medium">{Math.round(32 / 50)}%</span>
-              </div>
-
-              <AppProgress value={Math.round(24 / 50)} className="h-2" />
-            </div>
-          </AppCard>
+          {MOCK_PRACTICE_SECTIONS.map(section => (
+            <PracticeCard {...section} />
+          ))}
         </div>
       </div>
     </main>
