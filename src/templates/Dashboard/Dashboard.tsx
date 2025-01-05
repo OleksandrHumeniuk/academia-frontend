@@ -4,7 +4,7 @@ import { Book, Code } from 'lucide-react';
 import AppCard from '@/components/AppCard/AppCard';
 import AppProgress from '@/components/AppProgress/AppProgress';
 import ProficiencyProgress from '@/containers/ProficiencyProgress/ProficiencyProgress';
-import SkillsRadarChart from '@/containers/SkillsRadarChart/SkillsChart';
+import SkillsRadarChart from '@/containers/SkillsRadarChart/SkillsRadarChart';
 
 const Dashboard: React.FC = () => {
   return (

@@ -1,7 +1,8 @@
 import React from 'react';
-import { BookOpenCheck, ChartSpline, FileClock, GraduationCap, NotebookText } from 'lucide-react';
+import { BookOpenCheck, ChartSpline, FileClock, NotebookText } from 'lucide-react';
 
 import AppSidebar from '@/components/AppSidebar/AppSidebar';
+import AppLogo from '@/components/AppLogo/AppLogo';
 
 // This is sample data.
 const data = {
@@ -42,10 +43,7 @@ const PageLayoutSidebar: React.FC = () => {
           <AppSidebar.MenuItem>
             <AppSidebar.MenuButton size="lg" asChild>
               <a href="#">
-                <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                  <GraduationCap className="size-4" />
-                </div>
-                <span className="text-xl font-semibold">Explore</span>
+                <AppLogo />
               </a>
             </AppSidebar.MenuButton>
           </AppSidebar.MenuItem>
