@@ -1,10 +1,10 @@
 import React from 'react';
-import { BookOpenCheck, ChartSpline, FileClock, NotebookText } from 'lucide-react';
+import { BookOpenCheck, ChartSpline, CircleUser, FileClock, LogOut, NotebookText } from 'lucide-react';
 
 import AppSidebar from '@/components/AppSidebar/AppSidebar';
 import AppLogo from '@/components/AppLogo/AppLogo';
+import AppSeparator from '@/components/AppSeparator/AppSeparator';
 
-// This is sample data.
 const data = {
   navMain: [
     {
@@ -52,7 +52,7 @@ const PageLayoutSidebar: React.FC = () => {
         </AppSidebar.Menu>
       </AppSidebar.Header>
       <AppSidebar.Content>
-        <AppSidebar.Group>
+        <AppSidebar.Group className="flex h-full flex-col justify-between">
           <AppSidebar.Menu>
             {data.navMain.map(item => (
               <AppSidebar.MenuItem key={item.title}>
@@ -75,6 +75,23 @@ const PageLayoutSidebar: React.FC = () => {
                 )}
               </AppSidebar.MenuItem>
             ))}
+          </AppSidebar.Menu>
+
+          <AppSidebar.Menu>
+            <AppSeparator />
+            <div className="space-y-2 py-2">
+              <AppSidebar.MenuButton asChild>
+                <a href="/profile">
+                  <CircleUser />
+                  Profile
+                </a>
+              </AppSidebar.MenuButton>
+
+              <AppSidebar.MenuButton className="w-full justify-start gap-2 text-red-500 hover:bg-red-50 hover:text-red-600 active:bg-red-50 active:text-red-600">
+                <LogOut />
+                Logout
+              </AppSidebar.MenuButton>
+            </div>
           </AppSidebar.Menu>
         </AppSidebar.Group>
       </AppSidebar.Content>
