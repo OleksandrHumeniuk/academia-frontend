@@ -1,0 +1,14 @@
+# Dependencies
+node_modules
+
+# Production
+dist
+dist-ssr
+build
+
+# Config files
+vite.config.ts
+.eslintrc.cjs
+.prettierrc.cjs
+tailwind.config.js
+postcss.config.js
