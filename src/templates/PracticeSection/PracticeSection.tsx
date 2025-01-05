@@ -31,7 +31,7 @@ const PracticeSection: React.FC = () => {
 
   return (
     <main className="flex-1 px-8 py-4">
-      <div className="mx-auto max-w-7xl space-y-8">
+      <div className="mx-auto space-y-8">
         <div>
           <div>
             <h2 className="mb-1 text-2xl font-semibold text-gray-900">

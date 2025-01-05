@@ -7,6 +7,7 @@ import TestFlow from '@/templates/TestFlow/TestFlow';
 import TestResults from '@/templates/TestResults/TestResults';
 import Testing from '@/templates/Testing/Testing';
 import Practice from '@/templates/Practice/Practice';
+import History from '@/templates/History/History';
 import PracticeSection from '@/templates/PracticeSection/PracticeSection';
 
 const App: React.FC = () => {
@@ -33,6 +34,14 @@ const App: React.FC = () => {
         element={
           <PageLayout title="Practice" backActions>
             <PracticeSection />
+          </PageLayout>
+        }
+      />
+      <Route
+        path="/history"
+        element={
+          <PageLayout title="History">
+            <History />
           </PageLayout>
         }
       />
