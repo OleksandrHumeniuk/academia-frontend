@@ -57,7 +57,7 @@ const History: React.FC = () => {
   };
 
   return (
-    <main className="flex-1 px-8 py-4">
+    <main className="flex-1 px-2 py-4 sm:px-2">
       <div className="mb-6">
         <h2 className="mb-1 text-2xl font-semibold text-gray-900">Test History</h2>
         <p className="text-gray-500"> View your previous assessment results</p>

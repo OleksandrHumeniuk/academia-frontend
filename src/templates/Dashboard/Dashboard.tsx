@@ -13,7 +13,7 @@ const Dashboard: React.FC = () => {
   );
 
   return (
-    <main className="flex-1 px-8 py-4">
+    <main className="flex-1 px-2 py-4 sm:px-8">
       <DashboardInitialModal visible={isInitialModalOpened} setVisible={setIsInitialModalOpened} />
 
       <div className="mx-auto space-y-8">
@@ -23,7 +23,7 @@ const Dashboard: React.FC = () => {
         </div>
 
         <div className="space-y-8">
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             <AppCard className="flex flex-col bg-white p-8">
               <h2 className="mb-6 text-xl font-semibold text-black">Overall Proficiency</h2>
               <div className="flex flex-1 justify-center">
@@ -53,7 +53,7 @@ const Dashboard: React.FC = () => {
           <p className="text-gray-500">Track your progress in grammar and vocabulary exercises</p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {MOCK_PRACTICE_SECTIONS.map(section => (
             <PracticeCard {...section} />
           ))}

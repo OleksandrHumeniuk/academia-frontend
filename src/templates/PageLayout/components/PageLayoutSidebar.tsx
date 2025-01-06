@@ -1,8 +1,8 @@
 import React from 'react';
 import { BookOpenCheck, ChartSpline, CircleUser, FileClock, LogOut, NotebookText } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-import AppSidebar from '@/components/AppSidebar/AppSidebar';
+import AppSidebar, { useSidebar } from '@/components/AppSidebar/AppSidebar';
 import AppLogo from '@/components/AppLogo/AppLogo';
 import AppSeparator from '@/components/AppSeparator/AppSeparator';
 
@@ -40,9 +40,16 @@ const data = {
 
 const PageLayoutSidebar: React.FC = () => {
   const navigate = useNavigate();
+  const { isMobile, setOpenMobile } = useSidebar();
 
   const handleLogOut = (): void => {
     navigate('/login');
+  };
+
+  const handleNavigation = (): void => {
+    if (isMobile) {
+      setOpenMobile(false);
+    }
   };
 
   return (
@@ -51,9 +58,9 @@ const PageLayoutSidebar: React.FC = () => {
         <AppSidebar.Menu>
           <AppSidebar.MenuItem>
             <AppSidebar.MenuButton size="lg" asChild>
-              <a href="/">
+              <Link to="/" onClick={handleNavigation}>
                 <AppLogo />
-              </a>
+              </Link>
             </AppSidebar.MenuButton>
           </AppSidebar.MenuItem>
         </AppSidebar.Menu>
@@ -64,17 +71,19 @@ const PageLayoutSidebar: React.FC = () => {
             {data.navMain.map(item => (
               <AppSidebar.MenuItem key={item.title}>
                 <AppSidebar.MenuButton asChild>
-                  <a href={item.url}>
+                  <Link to={item.url} onClick={handleNavigation}>
                     <item.icon />
                     {item.title}
-                  </a>
+                  </Link>
                 </AppSidebar.MenuButton>
                 {!!item.items?.length && (
                   <AppSidebar.MenuSub>
                     {item.items.map(childItem => (
                       <AppSidebar.MenuSubItem key={childItem.title}>
                         <AppSidebar.MenuSubButton asChild>
-                          <a href={childItem.url}>{childItem.title}</a>
+                          <Link to={childItem.url} onClick={handleNavigation}>
+                            {childItem.title}
+                          </Link>
                         </AppSidebar.MenuSubButton>
                       </AppSidebar.MenuSubItem>
                     ))}
@@ -88,10 +97,10 @@ const PageLayoutSidebar: React.FC = () => {
             <AppSeparator />
             <div className="space-y-2 py-2">
               <AppSidebar.MenuButton asChild>
-                <a href="/profile">
+                <Link to="/profile" onClick={handleNavigation}>
                   <CircleUser />
                   Profile
-                </a>
+                </Link>
               </AppSidebar.MenuButton>
 
               <AppSidebar.MenuButton

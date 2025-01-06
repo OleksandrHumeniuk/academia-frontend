@@ -97,7 +97,7 @@ const PracticeExercise: React.FC<PracticeExerciseProps> = ({
 
   return (
     <AppDialog open={open} onOpenChange={onClose}>
-      <AppDialog.Content className="min-h-[500px] max-w-[800px] p-0">
+      <AppDialog.Content className="min-h-[500px] w-[800px] p-0">
         <div className="flex h-full flex-col p-6">
           <div className="mb-8 flex flex-1 flex-col gap-2">
             <div className="mb-2 flex flex-col items-start gap-4">

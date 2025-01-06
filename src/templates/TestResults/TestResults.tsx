@@ -61,7 +61,7 @@ const TestResults: React.FC<TestResultsProps> = ({
             </p>
           </div>
 
-          <div className="grid grid-cols-2 gap-8 text-center">
+          <div className="grid grid-cols-1 gap-8 text-center md:grid-cols-2">
             <div>
               <h3 className="mb-4 text-xl font-semibold">Overall Proficiency</h3>
               <div className="flex justify-center">
@@ -74,7 +74,7 @@ const TestResults: React.FC<TestResultsProps> = ({
             </div>
           </div>
 
-          <div className="mt-8 grid grid-cols-2 gap-8">
+          <div className="mt-8 grid grid-cols-1 gap-8 md:grid-cols-2">
             <AppCard className="p-6">
               <h3 className="mb-4 flex items-center gap-2 text-lg font-semibold">
                 <Check className="size-5 text-green-500" />
@@ -117,7 +117,7 @@ const TestResults: React.FC<TestResultsProps> = ({
             </p>
           </AppCard>
 
-          <div className="flex justify-center gap-4 pt-4">
+          <div className="flex flex-col justify-center gap-4 pt-4 sm:flex-row">
             <AppButton
               size="lg"
               variant="outline"

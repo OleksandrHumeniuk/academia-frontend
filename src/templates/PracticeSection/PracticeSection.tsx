@@ -30,7 +30,7 @@ const PracticeSection: React.FC = () => {
   };
 
   return (
-    <main className="flex-1 px-8 py-4">
+    <main className="flex-1 px-2 py-4 sm:px-2">
       <div className="mx-auto space-y-8">
         <div>
           <div>

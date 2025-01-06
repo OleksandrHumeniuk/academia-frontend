@@ -6,7 +6,7 @@ import AppInput from '@/components/AppInput/AppInput';
 
 const Profile: React.FC = () => {
   return (
-    <main className="flex-1 px-8 py-4">
+    <main className="flex-1 px-2 py-4 sm:px-2">
       <div className="mb-6">
         <h1 className="mb-1 text-2xl font-bold text-gray-900">Profile</h1>
         <p className="text-gray-500">Your personal information</p>

@@ -85,7 +85,7 @@ const ReadingPractice: React.FC<ReadingPracticeProps> = ({
 
   return (
     <AppDialog open={open} onOpenChange={onClose}>
-      <AppDialog.Content className="min-h-[600px] max-w-[800px] bg-white p-0">
+      <AppDialog.Content className="min-h-[600px] w-[800px] bg-white p-0">
         <div className="flex h-full flex-col p-6">
           <div className="flex-1">
             <div className="mb-8">

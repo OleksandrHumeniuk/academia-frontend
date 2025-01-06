@@ -98,7 +98,7 @@ const TestFlowQuestions: React.FC<TestFlowQuestionProps> = ({ activeStep, onNext
 
   return (
     <div className="relative w-full">
-      <div className="absolute right-0 top-[6px] flex items-center gap-2 font-medium">
+      <div className="right-0 top-[6px] flex items-center gap-2 font-medium sm:absolute">
         <Timer className="size-4" />
         {formatTimer(timeLeft)}
       </div>
