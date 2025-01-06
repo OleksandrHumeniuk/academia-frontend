@@ -18,7 +18,7 @@ const Dashboard: React.FC = () => {
 
       <div className="mx-auto space-y-8">
         <div className="mb-6">
-          <h2 className="text-2xl font-semibold text-gray-900">Current English Level</h2>
+          <h2 className="mb-1 text-2xl font-semibold text-gray-900">Current English Level</h2>
           <p className="text-gray-500">Track your English proficiency progress</p>
         </div>
 
