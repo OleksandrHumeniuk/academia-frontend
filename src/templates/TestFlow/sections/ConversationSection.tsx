@@ -20,7 +20,7 @@ const ConversationSection: React.FC<ConversationSectionProps> = ({ onNext }: Con
     <div className="space-y-8">
       <h1 className="mb-4 text-2xl font-semibold">Part 5 – Conversation</h1>
 
-      <div className="relative mx-auto mt-8 size-[350px]">
+      <div className="relative mx-auto mt-8 size-[350px] h-auto max-w-full">
         <AppButton
           variant="outline"
           className="absolute left-1/2 top-1/2 w-[200px] -translate-x-1/2 -translate-y-1/2 rounded-3xl"
