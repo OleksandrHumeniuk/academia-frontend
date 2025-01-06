@@ -6,6 +6,7 @@ import AppSidebar from '@/components/AppSidebar/AppSidebar';
 import AppSeparator from '@/components/AppSeparator/AppSeparator';
 import PageLayoutSidebar from './components/PageLayoutSidebar';
 import AppButton from '@/components/AppButton/AppButton';
+import cn from '@/utils/cn';
 
 export type PageLayoutProps = {
   children: React.ReactNode;
@@ -63,7 +64,15 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children, title, actions, backA
             )}
           </header>
 
-          <div className="flex flex-1 flex-col gap-4 p-4">{children}</div>
+          <div
+            className={cn(
+              'flex flex-1 flex-col gap-4 p-4 sm:mb-0',
+              actions && 'mb-[120px]',
+              backActions && 'mb-[75px]',
+            )}
+          >
+            {children}
+          </div>
         </AppSidebar.Inset>
       </AppSidebar.Provider>
     </div>
