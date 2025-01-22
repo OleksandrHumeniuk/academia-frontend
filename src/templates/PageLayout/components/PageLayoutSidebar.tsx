@@ -59,7 +59,7 @@ const PageLayoutSidebar: React.FC = () => {
           <AppSidebar.MenuItem>
             <AppSidebar.MenuButton size="lg" asChild>
               <Link to="/" onClick={handleNavigation}>
-                <AppLogo />
+                <AppLogo showText />
               </Link>
             </AppSidebar.MenuButton>
           </AppSidebar.MenuItem>

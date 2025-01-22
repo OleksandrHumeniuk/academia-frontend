@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import AppLogo from '@/components/AppLogo/AppLogo';
 import TestFlowStart from './components/TestFlowStart';
@@ -37,9 +38,9 @@ const TestFlow: React.FC = () => {
       </div>
 
       <footer className="h-16">
-        <div className="mx-auto flex h-full max-w-[1200px] items-center justify-center gap-2 px-6">
+        <Link to="/" className="mx-auto flex h-full max-w-[1200px] items-center justify-center gap-2 px-6">
           Made by <AppLogo />
-        </div>
+        </Link>
       </footer>
     </div>
   );
