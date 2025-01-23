@@ -58,6 +58,7 @@ As we continue to develop and implement AI technologies, it's crucial to establi
   ],
 };
 
+/* This component is unused, because we removed reading practice */
 const ReadingPractice: React.FC<ReadingPracticeProps> = ({
   open = true,
   onClose = () => {},

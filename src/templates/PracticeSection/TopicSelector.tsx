@@ -4,8 +4,6 @@ import { ChevronRight } from 'lucide-react';
 import AppCard from '@/components/AppCard/AppCard';
 import AppProgress from '@/components/AppProgress/AppProgress';
 import PracticeExercise from './PracticeExercise';
-import ReadingPractice from './ReadingPractice';
-import WritingPractice from './WritingPractice';
 
 import type { Topic } from '@/types/topic';
 
@@ -20,38 +18,6 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ topics, onSelectTopic = (
   const handleTopicSelect = (topic: Topic) => {
     setSelectedTopic(topic);
     onSelectTopic(topic.id);
-  };
-
-  const renderPracticeComponent = () => {
-    if (!selectedTopic) return null;
-
-    switch (selectedTopic.type) {
-      case 'reading':
-        return (
-          <ReadingPractice
-            open={!!selectedTopic}
-            onClose={() => setSelectedTopic(null)}
-            topicTitle={selectedTopic.title}
-          />
-        );
-      case 'writing':
-        return (
-          <WritingPractice
-            open={!!selectedTopic}
-            onClose={() => setSelectedTopic(null)}
-            topicTitle={selectedTopic.title}
-          />
-        );
-      default:
-        return (
-          <PracticeExercise
-            open={!!selectedTopic}
-            type={selectedTopic.type}
-            onClose={() => setSelectedTopic(null)}
-            topicTitle={selectedTopic.title}
-          />
-        );
-    }
   };
 
   return (
@@ -83,7 +49,14 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ topics, onSelectTopic = (
         ))}
       </div>
 
-      {selectedTopic && renderPracticeComponent()}
+      {selectedTopic && (
+        <PracticeExercise
+          open={!!selectedTopic}
+          type={selectedTopic.type}
+          onClose={() => setSelectedTopic(null)}
+          topicTitle={selectedTopic.title}
+        />
+      )}
     </>
   );
 };

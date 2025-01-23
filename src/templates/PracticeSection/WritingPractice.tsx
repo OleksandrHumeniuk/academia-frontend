@@ -46,6 +46,7 @@ const mockPrompts: WritingPrompt[] = [
   },
 ];
 
+/* This component is unused, because we removed writing practice */
 const WritingPractice: React.FC<WritingPracticeProps> = ({
   open = true,
   onClose = () => {},
