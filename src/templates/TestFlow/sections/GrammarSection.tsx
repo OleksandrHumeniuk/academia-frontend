@@ -4,36 +4,41 @@ import AppButton from '@/components/AppButton/AppButton';
 import AppLabel from '@/components/AppLabel/AppLabel';
 import AppCard from '@/components/AppCard/AppCard';
 import AppRadioGroup from '@/components/AppRadioGroup/AppRadioGroup';
+import TestFlowPlaceholder from '@/templates/TestFlow/components/TestFlowPlaceholder';
+import TestTimer from '@/containers/TestTimer/TestTimer';
 
-type SingleChoiceQuestion = {
+type GrammarQuestion = {
   text: string;
   options: string[];
 };
 
-type SingleChoiceSectionProps = {
+type GrammarSectionProps = {
   onNext: (answers: string[]) => void;
-  questions: SingleChoiceQuestion[];
-  type: 'vocabulary' | 'grammar';
+  questions: GrammarQuestion[];
 };
 
-const SingleChoiceSection: React.FC<SingleChoiceSectionProps> = ({
-  type, //
-  questions,
-  onNext,
-}) => {
+const GRAMMAR_TIMER = 10 * 60; // 10 minutes
+
+const GrammarSection: React.FC<GrammarSectionProps> = ({ questions, onNext }) => {
+  const [isStarted, setIsStarted] = useState<boolean>(false);
+
   const [activeQuestionIndex, setActiveQuestionIndex] = useState<number>(0);
   const [answers, setAnswers] = useState<string[]>(new Array(questions.length).fill(''));
 
   const question = questions[activeQuestionIndex];
 
-  if (type === 'vocabulary') {
-    console.log(question, activeQuestionIndex);
-  }
+  const handleStartSection = (): void => {
+    setIsStarted(true);
+  };
 
   const handleAnswerChange = (value: string): void => {
     const newAnswers = [...answers];
     newAnswers[activeQuestionIndex] = value;
     setAnswers(newAnswers);
+  };
+
+  const handleFinishSection = (): void => {
+    onNext(answers);
   };
 
   const handleNext = (): void => {
@@ -42,15 +47,28 @@ const SingleChoiceSection: React.FC<SingleChoiceSectionProps> = ({
       return;
     }
 
-    onNext(answers);
+    handleFinishSection();
   };
 
+  if (!isStarted) {
+    return (
+      <TestFlowPlaceholder //
+        buttonText="Start the section"
+        title="Part 1 - Grammar"
+        subtitles="The first part of the test is designed to evaluate your understanding of English grammar. You’ll answer 15 multiple-choice questions, with only one correct answer. You have 10 minutes to complete this section. Good luck!"
+        audioUrl="/audio/grammar.mp3"
+        speed={300}
+        onStart={handleStartSection}
+      />
+    );
+  }
+
   return (
-    <div className="space-y-8">
-      <div>
-        <h1 className="mb-4 text-2xl font-semibold">
-          {type === 'vocabulary' ? 'Part 1 - Vocabulary' : 'Part 2 - Grammar'}
-        </h1>
+    <div className="relative">
+      <TestTimer time={GRAMMAR_TIMER} onTimeOver={handleFinishSection} />
+
+      <div className="mb-8">
+        <h1 className="mb-4 text-2xl font-semibold">Part 1 - Grammar</h1>
         <p className="text-gray-600">
           Question {activeQuestionIndex + 1} of {questions.length}
         </p>
@@ -89,4 +107,4 @@ const SingleChoiceSection: React.FC<SingleChoiceSectionProps> = ({
   );
 };
 
-export default SingleChoiceSection;
+export default GrammarSection;

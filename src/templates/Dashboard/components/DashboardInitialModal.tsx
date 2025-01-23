@@ -15,7 +15,6 @@ const DashboardInitialModal: React.FC<DashboardInitialModalProps> = ({ visible, 
   const navigate = useNavigate();
 
   const [profession, setProfession] = useState<string>('tech');
-  const [englishLevel, setEnglishLevel] = useState<string>('A1');
 
   const handleStartAssessment = (): void => {
     localStorage.setItem('isInitialModalOpened', 'true');
@@ -28,27 +27,10 @@ const DashboardInitialModal: React.FC<DashboardInitialModalProps> = ({ visible, 
         <div className="space-y-6 py-4">
           <div className="space-y-2">
             <h2 className="text-2xl font-bold">Welcome to Explore!</h2>
-            <p className="text-gray-500">Before we begin, please tell us about yourself</p>
+            <p className="text-gray-500">Before we begin, please choose your profession</p>
           </div>
 
           <div className="space-y-4">
-            <div className="space-y-2">
-              <AppLabel>Current English Level</AppLabel>
-              <AppSelect value={englishLevel} onValueChange={setEnglishLevel}>
-                <AppSelect.Trigger>
-                  <AppSelect.Value placeholder="Select your level" />
-                </AppSelect.Trigger>
-                <AppSelect.Content>
-                  <AppSelect.Item value="A1">A1 (Beginner)</AppSelect.Item>
-                  <AppSelect.Item value="A2">A2 (Elementary)</AppSelect.Item>
-                  <AppSelect.Item value="B1">B1 (Intermediate)</AppSelect.Item>
-                  <AppSelect.Item value="B2">B2 (Upper Intermediate)</AppSelect.Item>
-                  <AppSelect.Item value="C1">C1 (Advanced)</AppSelect.Item>
-                  <AppSelect.Item value="C2">C2 (Proficient)</AppSelect.Item>
-                </AppSelect.Content>
-              </AppSelect>
-            </div>
-
             <div className="space-y-2">
               <AppLabel>Profession</AppLabel>
               <AppSelect value={profession} onValueChange={setProfession}>
@@ -67,7 +49,7 @@ const DashboardInitialModal: React.FC<DashboardInitialModalProps> = ({ visible, 
             </div>
           </div>
 
-          <AppButton className="w-full" disabled={!englishLevel || !profession} onClick={handleStartAssessment}>
+          <AppButton className="w-full" disabled={!profession} onClick={handleStartAssessment}>
             Start Initial Assessment
           </AppButton>
         </div>

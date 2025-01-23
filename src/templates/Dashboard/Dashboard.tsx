@@ -36,11 +36,11 @@ const Dashboard: React.FC = () => {
               <div className="flex justify-center">
                 <SkillsRadarChart
                   scores={[
-                    { skill: 'Speaking', score: 75 },
-                    { skill: 'Listening', score: 80 },
-                    { skill: 'Reading', score: 85 },
-                    { skill: 'Writing', score: 70 },
-                    { skill: 'Grammar', score: 90 },
+                    { skill: 'Vocabulary', score: 75 },
+                    { skill: 'Grammar', score: 80 },
+                    { skill: 'Speaking / Pronunciation', score: 85 },
+                    { skill: 'Fluency', score: 70 },
+                    { skill: 'Writing', score: 90 },
                   ]}
                 />
               </div>

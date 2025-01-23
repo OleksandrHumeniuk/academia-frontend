@@ -2,115 +2,96 @@
 export const MOCK_QUESTIONS = {
   vocabulary: [
     {
-      text: 'Complete the sentence: The project was a great _____, bringing together experts from various fields.',
-      answer: 'collaboration',
-      options: ['collaboration', 'collection', 'collation', 'coalition'],
+      text: 'He ____ a software developer.',
+      answer: 'is',
+      options: ['is', 'are', 'am', 'be'],
     },
     {
-      text: "Fill in the blank: The company's _____ to sustainability has led to numerous environmental initiatives.",
-      answer: 'commitment',
-      options: ['commitment', 'commission', 'commendation', 'communion'],
+      text: 'You ____ check the API documentation before making changes.',
+      answer: 'should',
+      options: ['must', 'should', 'could', 'might'],
     },
     {
-      text: "What's the word? The researcher made a significant _____ in cancer treatment.",
-      answer: 'breakthrough',
-      options: ['breakthrough', 'breakout', 'breakdown', 'breakup'],
-    },
-    {
-      text: 'Complete: The _____ of the ancient ruins provided valuable insights into the civilization.',
-      answer: 'excavation',
-      options: ['excavation', 'execution', 'examination', 'exploration'],
-    },
-    {
-      text: "Fill in: The speaker's _____ delivery made the complex topic easy to understand.",
-      answer: 'articulate',
-      options: ['articulate', 'artistic', 'artificial', 'arduous'],
+      text: 'Although the deadline was tight, the team managed to deliver the project ____ issues.',
+      answer: 'without any',
+      options: ['without any', 'despite of', 'with no', 'besides'],
     },
   ],
   grammar: [
     {
-      text: 'Choose the correct form:',
-      options: [
-        'I have been working here since three years',
-        'I have been working here for three years',
-        'I am working here for three years',
-        'I work here since three years',
+      text: `Continuous Integration (CI) is a software development practice where developers frequently integrate their code into a shared repository. The main goal of CI is to identify and address bugs as early as possible, reducing the risk of integration issues during later stages of development. Typically, CI systems automate the process by running a series of tests whenever new code is pushed to the repository.
+
+A CI pipeline usually includes steps like build automation, unit testing, and code quality checks. For example, when a developer commits their changes, the pipeline compiles the code, executes automated tests, and provides immediate feedback on whether the changes meet predefined quality standards. If the pipeline fails, the developer must resolve the issues before merging their code.
+
+CI tools such as Jenkins, CircleCI, and GitHub Actions are widely used in the industry. These tools can be configured to include additional steps, like deploying code to staging environments or running performance benchmarks. CI is an integral part of DevOps practices, enabling teams to collaborate more efficiently and deliver higher-quality software.
+
+Adopting CI requires a cultural shift, as developers must commit to frequent integrations and embrace the "fail fast, fix fast" mindset, fostering a more agile development process.`,
+      questions: [
+        {
+          text: 'What is the primary goal of Continuous Integration (CI)?',
+          options: [
+            'To write better documentation',
+            'To find and fix bugs early',
+            'To reduce deployment time',
+            'To create new repositories',
+          ],
+          correctAnswer: 1,
+        },
+        {
+          text: 'What happens when a CI pipeline fails?',
+          options: [
+            'The code is merged automatically',
+            'The developer must resolve the issue',
+            'The repository is locked',
+            'The project is abandoned',
+          ],
+          correctAnswer: 2,
+        },
       ],
-      correctAnswer: 1,
     },
     {
-      text: 'Select the right tense:',
-      options: ['I am study English', 'I studying English', 'I am studying English', 'I studies English'],
-      correctAnswer: 2,
-    },
-    {
-      text: 'Pick the correct sentence:',
-      options: [
-        'If I would know, I will tell you',
-        'If I knew, I would tell you',
-        'If I know, I would tell you',
-        'If I knew, I will tell you',
+      text: `Situation: Weekly Team Planning Call
+
+Team Lead: Hi everyone, thanks for joining. Let’s start with the sprint goals. By Friday, we need to finalize the authentication feature. Alex, are you still blocked by the API issues?
+
+Alex: Not anymore! The backend team resolved it yesterday. I’ll integrate the new endpoints today.
+
+Team Lead: Perfect. Anna, how’s the UI for the dashboard coming along?
+
+Anna: It’s 80% done. I’ll polish the CSS and add responsiveness tomorrow.
+
+Team Lead: Sounds good. For next week, we’ll focus on performance optimization. There’s a noticeable lag when rendering large datasets. Let’s prioritize lazy loading and caching strategies.
+
+Alex: Agreed. Should we also review the database indexing?
+
+Team Lead: Yes, that’s part of it. Make sure to document any findings in Confluence. Anything else?
+
+Anna: Not from me.
+
+Team Lead: Great, let’s stay on track. Talk soon!`,
+      questions: [
+        {
+          text: 'What feature is the team aiming to finalize by Friday?',
+          options: ['Lazy loading', 'Dashboard UI', 'Authentication', 'Performance optimization'],
+          correctAnswer: 2,
+        },
+        {
+          text: 'What was Alex previously blocked by?',
+          options: ['UI bugs', 'API issues', 'Database indexing', 'CSS responsiveness'],
+          correctAnswer: 1,
+        },
       ],
-      correctAnswer: 1,
-    },
-    {
-      text: 'Choose the right form:',
-      options: [
-        'She has been to Paris last year',
-        'She went to Paris last year',
-        'She have gone to Paris last year',
-        'She had been going to Paris last year',
-      ],
-      correctAnswer: 1,
-    },
-    {
-      text: 'Select the correct option:',
-      options: [
-        'Neither of the students have finished',
-        'Neither of the students has finished',
-        'Neither of the students are finished',
-        'Neither of the students were finished',
-      ],
-      correctAnswer: 1,
     },
   ],
-  reading: {
-    passage: `Artificial Intelligence (AI) has become an integral part of our daily lives, transforming how we work, communicate, and solve problems. From virtual assistants to autonomous vehicles, AI technologies are revolutionizing various industries. However, this rapid advancement also raises important ethical questions about privacy, job displacement, and the future role of humans in an AI-driven world.
-
-While AI offers numerous benefits, such as increased efficiency and improved decision-making, it also presents challenges that society must address. One major concern is the potential impact on employment, as automation may replace certain jobs. Another consideration is the need for transparent and unbiased AI systems that serve all members of society equally.
-
-As we continue to develop and implement AI technologies, it's crucial to establish proper guidelines and regulations. This will help ensure that AI advancement benefits humanity while minimizing potential risks and ethical concerns.`,
-    questions: [
-      {
-        text: 'What is the main theme of the passage?',
-        options: [
-          'The history of AI development',
-          'The impact and challenges of AI in society',
-          'How to build AI systems',
-          'The future of employment',
-        ],
-        correctAnswer: 1,
-      },
-      {
-        text: 'According to the passage, what is one major concern about AI?',
-        options: [
-          'The cost of development',
-          'The speed of advancement',
-          'The impact on employment',
-          'The complexity of systems',
-        ],
-        correctAnswer: 2,
-      },
-      {
-        text: 'What does the passage suggest is necessary for AI development?',
-        options: ['Faster implementation', 'More funding', 'Guidelines and regulations', 'Better technology'],
-        correctAnswer: 2,
-      },
-    ],
-  },
-  writing: {
-    prompt:
-      'What role do you think artificial intelligence will play in education in the future? Provide specific examples and explain your reasoning.',
-    minWords: 150,
-  },
+  writing: [
+    {
+      prompt: 'Describe a technical problem you recently solved at work. What steps did you take to fix it?',
+      minWords: 70,
+    },
+    {
+      prompt:
+        'How do you see the role of AI and automation in the future of software development? Share your thoughts and give examples.',
+      minWords: 70,
+    },
+  ],
 };

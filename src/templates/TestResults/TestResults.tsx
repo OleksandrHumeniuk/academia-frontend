@@ -24,11 +24,11 @@ const TestResults: React.FC<TestResultsProps> = ({
   level = 'B1',
   percentage = 75,
   scores = [
-    { skill: 'Speaking', score: 75 },
-    { skill: 'Listening', score: 80 },
-    { skill: 'Reading', score: 85 },
-    { skill: 'Writing', score: 70 },
-    { skill: 'Grammar', score: 90 },
+    { skill: 'Vocabulary', score: 75 },
+    { skill: 'Grammar', score: 80 },
+    { skill: 'Speaking / Pronunciation', score: 85 },
+    { skill: 'Fluency', score: 70 },
+    { skill: 'Writing', score: 90 },
   ],
 }) => {
   const navigate = useNavigate();
@@ -218,9 +218,9 @@ const TestResults: React.FC<TestResultsProps> = ({
                   <AppCard className="space-y-6 p-4">
                     <div>
                       <p className="mb-2 text-sm font-medium text-gray-600">Passage:</p>
-                      <p className="text-sm">{questions.reading.passage}</p>
+                      <p className="text-sm">{questions.grammar.passage}</p>
                     </div>
-                    {questions.reading.questions.map((question, index) => (
+                    {questions.grammar.questions.map((question, index) => (
                       <div key={index} className="space-y-4 border-t pt-4">
                         <div>
                           <p className="mb-2 text-sm font-medium text-gray-600">Question {index + 1}:</p>

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import PageLayout from '@/templates/PageLayout/PageLayout';
+import PageLayout from '@/layouts/PageLayout/PageLayout';
+import TestFlowLayout from '@/layouts/TestFlowLayout/TestFlowLayout';
 import Dashboard from '@/templates/Dashboard/Dashboard';
 import TestFlow from '@/templates/TestFlow/TestFlow';
 import TestResults from '@/templates/TestResults/TestResults';
@@ -55,11 +56,15 @@ const App: React.FC = () => {
           </PageLayout>
         }
       />
+      <Route path="/login" element={<Login />} />
       <Route
-        path="/login"
-        element={<Login />}
+        path="/test"
+        element={
+          <TestFlowLayout>
+            <TestFlow />
+          </TestFlowLayout>
+        }
       />
-      <Route path="/test" element={<TestFlow />} />
       <Route path="/components" element={<Testing />} />
       <Route path="/results" element={<TestResults />} />
     </Routes>
