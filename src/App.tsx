@@ -1,5 +1,5 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import PageLayout from '@/layouts/PageLayout/PageLayout';
 import TestFlowLayout from '@/layouts/TestFlowLayout/TestFlowLayout';
@@ -14,6 +14,13 @@ import Profile from '@/templates/Profile/Profile';
 import Login from '@/templates/Login/Login';
 
 const App: React.FC = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    !token && navigate('/login');
+  }, [navigate]);
+
   return (
     <Routes>
       <Route
