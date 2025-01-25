@@ -9,12 +9,15 @@ import VocabularySection from '@/templates/TestFlow/sections/VocabularySection';
 import WritingSection from '@/templates/TestFlow/sections/WritingSection';
 import ConversationSection from '@/templates/TestFlow/sections/ConversationSection';
 import useAudio from '@/hooks/useAudio/useAudio';
+import useStore from '@/context/store/useStore';
 import { MOCK_QUESTIONS } from '@/constants/questions';
 
 const TestFlow: React.FC = () => {
   const { playAudio } = useAudio();
 
   const navigate = useNavigate();
+
+  const test = useStore().test!;
 
   const [isStarted, setIsStarted] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -27,7 +30,7 @@ const TestFlow: React.FC = () => {
   };
 
   const handleNext = (sectionAnswers?: string[] | number[] | string): void => {
-    const sectionKey = ['vocabulary', 'grammar', 'reading', 'writing', 'conversation'][activeStep];
+    const sectionKey = ['vocabulary', 'grammar', 'writing', 'speaking'][activeStep];
 
     setAnswers(prev => ({ ...prev, [sectionKey]: sectionAnswers }));
 
@@ -37,7 +40,6 @@ const TestFlow: React.FC = () => {
     }
 
     setActiveStep(activeStep + 1);
-    playAudio('/audio/good-job.mp3');
   };
 
   const handleCompleteResults = (): void => {

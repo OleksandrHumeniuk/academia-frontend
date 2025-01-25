@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useRef, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 import type { ReactNode } from 'react';
 
@@ -18,6 +19,15 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const finishCallbackRef = useRef<(() => void) | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+      setIsPlaying(false);
+    }
+  }, [location]);
 
   const playAudio = (src: string, onFinish?: () => void) => {
     if (!audioRef.current) return;
