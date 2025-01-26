@@ -7,10 +7,7 @@ import AppRadioGroup from '@/components/AppRadioGroup/AppRadioGroup';
 import TestFlowPlaceholder from '@/templates/TestFlow/components/TestFlowPlaceholder';
 import TestTimer from '@/containers/TestTimer/TestTimer';
 
-type GrammarQuestion = {
-  text: string;
-  options: string[];
-};
+import type { GrammarQuestion } from '@/types/test';
 
 type GrammarSectionProps = {
   onNext: (answers: string[]) => void;

@@ -8,20 +8,11 @@ import AppScrollArea from '@/components/AppScrollArea/AppScrollArea';
 import TestFlowPlaceholder from '@/templates/TestFlow/components/TestFlowPlaceholder';
 import TestTimer from '@/containers/TestTimer/TestTimer';
 
-type Question = {
-  text: string;
-  options: string[];
-  correctAnswer: number;
-};
-
-type Passage = {
-  text: string;
-  questions: Question[];
-};
+import type { VocabularyPassage } from '@/types/test';
 
 type VocabularySectionProps = {
   onNext: (answers: number[]) => void;
-  passages: Passage[];
+  passages: VocabularyPassage[];
 };
 
 const VOCABULARY_TIMER = 15 * 60; // 15 minutes

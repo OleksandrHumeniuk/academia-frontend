@@ -1,20 +1,17 @@
 import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import TestAPI from '@/api/TestAPI/TestAPI';
 import TestFlowPlaceholder from './components/TestFlowPlaceholder';
 import AppProgress from '@/components/AppProgress/AppProgress';
 import TestFlowLoader from '@/templates/TestFlow/components/TestFlowLoader';
 import GrammarSection from '@/templates/TestFlow/sections/GrammarSection';
 import VocabularySection from '@/templates/TestFlow/sections/VocabularySection';
 import WritingSection from '@/templates/TestFlow/sections/WritingSection';
-import ConversationSection from '@/templates/TestFlow/sections/ConversationSection';
-import useAudio from '@/hooks/useAudio/useAudio';
+import SpeakingSection from '@/templates/TestFlow/sections/SpeakingSection';
 import useStore from '@/context/store/useStore';
-import { MOCK_QUESTIONS } from '@/constants/questions';
 
 const TestFlow: React.FC = () => {
-  const { playAudio } = useAudio();
-
   const navigate = useNavigate();
 
   const test = useStore().test!;
@@ -29,21 +26,29 @@ const TestFlow: React.FC = () => {
     setIsStarted(true);
   };
 
-  const handleNext = (sectionAnswers?: string[] | number[] | string): void => {
+  const submitTest = (): void => {
+    setIsLoading(true);
+
+    TestAPI.submitTest(answers)
+      .then(resultId => {
+        navigate(`/results/${resultId}`);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  };
+
+  const handleNext = (sectionAnswers?: string[] | number[] | string | Blob[]): void => {
     const sectionKey = ['vocabulary', 'grammar', 'writing', 'speaking'][activeStep];
 
     setAnswers(prev => ({ ...prev, [sectionKey]: sectionAnswers }));
 
     if (activeStep === 3) {
-      setIsLoading(true);
+      submitTest();
       return;
     }
 
     setActiveStep(activeStep + 1);
-  };
-
-  const handleCompleteResults = (): void => {
-    navigate('/results');
   };
 
   const currentSection = useMemo<React.ReactElement | null>(() => {
@@ -51,14 +56,14 @@ const TestFlow: React.FC = () => {
       case 0:
         return (
           <GrammarSection //
-            questions={MOCK_QUESTIONS.vocabulary}
+            questions={test.grammar.questions}
             onNext={handleNext}
           />
         );
       case 1:
         return (
           <VocabularySection //
-            passages={MOCK_QUESTIONS.grammar}
+            passages={test.vocabulary.passages}
             onNext={handleNext}
           />
         );
@@ -66,27 +71,14 @@ const TestFlow: React.FC = () => {
         return (
           <WritingSection //
             onNext={handleNext}
-            prompts={MOCK_QUESTIONS.writing}
+            prompts={test.writing.questions}
           />
         );
       case 3:
         return (
-          <ConversationSection //
+          <SpeakingSection //
+            questions={test.speaking.questionAudios}
             onNext={handleNext}
-            prompts={[
-              {
-                audioUrl: '/audio/test.mp3',
-                subtitle:
-                  'You’ve just fixed a critical bug in the application that was causing errors in the user login process. During your daily stand-up meeting, your task is to explain the following to a team member or a QA engineer:\n' +
-                  '\n' +
-                  '1. What the bug was and how it affected the system.\n' +
-                  '2. How you identified the root cause of the problem.\n' +
-                  '3. The steps you took to resolve it.\n' +
-                  '4. What tests you ran to make sure the issue is completely fixed.\n' +
-                  '\n' +
-                  'Focus on explaining the issue clearly and using appropriate technical terms. Be prepared to answer follow-up questions from your colleague.',
-              },
-            ]}
           />
         );
       default:
@@ -96,15 +88,15 @@ const TestFlow: React.FC = () => {
 
   if (isLoading) {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-center p-4">
-        <TestFlowLoader onComplete={handleCompleteResults} />
+      <main className="flex h-full flex-1 flex-col items-center justify-center p-4">
+        <TestFlowLoader />
       </main>
     );
   }
 
   if (!isStarted) {
     return (
-      <main className="flex min-h-screen flex-col items-center justify-center p-4">
+      <main className="flex h-full flex-1 flex-col  items-center justify-center p-4">
         <div className="w-full max-w-[700px] space-y-8 rounded-xl bg-white p-8 shadow-sm">
           <TestFlowPlaceholder //
             buttonText="Start the test"
@@ -121,7 +113,7 @@ const TestFlow: React.FC = () => {
   }
 
   return (
-    <main className="flex min-h-screen flex-1 items-center justify-center p-4">
+    <main className="flex h-full flex-1  items-center justify-center p-4">
       <div className="fixed inset-x-0 top-0 z-50 h-1">
         <AppProgress value={((activeStep + 1) / 5) * 100} className="h-full rounded-none" />
       </div>

@@ -2,22 +2,20 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Mic, Square, Play } from 'lucide-react';
 
 import AppButton from '@/components/AppButton/AppButton';
+import TestFlowPlaceholder from '@/templates/TestFlow/components/TestFlowPlaceholder';
 import useAudio from '@/hooks/useAudio/useAudio';
 import gif from '../../../../public/ai.gif';
-import TestFlowPlaceholder from '@/templates/TestFlow/components/TestFlowPlaceholder';
 
-type Prompt = {
-  audioUrl: string;
-  subtitle: string;
-};
+import type { SpeakingQuestion } from '@/types/test';
 
 type ConversationSectionProps = {
   onNext: (recordings: Blob[]) => void;
-  prompts: Prompt[];
-  recordingDuration?: number;
+  questions: SpeakingQuestion[];
 };
 
-const ConversationSection: React.FC<ConversationSectionProps> = ({ onNext, prompts, recordingDuration = 40 }) => {
+const RECORDING_DURATION = 40;
+
+const SpeakingSection: React.FC<ConversationSectionProps> = ({ onNext, questions }) => {
   const { playAudio, isPlaying } = useAudio();
   const mediaRecorder = useRef<MediaRecorder | null>(null);
 
@@ -25,8 +23,8 @@ const ConversationSection: React.FC<ConversationSectionProps> = ({ onNext, promp
   const [currentPrompt, setCurrentPrompt] = useState(0);
   const [isRecording, setIsRecording] = useState(false);
   const [recordings, setRecordings] = useState<Blob[]>([]);
-  const [timeLeft, setTimeLeft] = useState(recordingDuration);
-  const timerRef = useRef<NodeJS.Timer>();
+  const [timeLeft, setTimeLeft] = useState<number>(RECORDING_DURATION);
+  const timerRef = useRef<NodeJS.Timer>(null);
 
   useEffect(() => {
     return () => {
@@ -36,6 +34,23 @@ const ConversationSection: React.FC<ConversationSectionProps> = ({ onNext, promp
       }
     };
   }, []);
+
+  const stopRecording = () => {
+    if (mediaRecorder.current?.state === 'recording') {
+      mediaRecorder.current.stop();
+      mediaRecorder.current.stream.getTracks().forEach(track => track.stop());
+    }
+    if (timerRef.current) {
+      clearInterval(timerRef.current);
+    }
+    setIsRecording(false);
+
+    if (currentPrompt < questions.length - 1) {
+      setCurrentPrompt(prev => prev + 1);
+    } else {
+      onNext(recordings);
+    }
+  };
 
   const startRecording = async () => {
     try {
@@ -50,7 +65,7 @@ const ConversationSection: React.FC<ConversationSectionProps> = ({ onNext, promp
 
       mediaRecorder.current.start();
       setIsRecording(true);
-      setTimeLeft(recordingDuration);
+      setTimeLeft(RECORDING_DURATION);
 
       timerRef.current = setInterval(() => {
         setTimeLeft(prev => {
@@ -66,29 +81,12 @@ const ConversationSection: React.FC<ConversationSectionProps> = ({ onNext, promp
     }
   };
 
-  const stopRecording = () => {
-    if (mediaRecorder.current?.state === 'recording') {
-      mediaRecorder.current.stop();
-      mediaRecorder.current.stream.getTracks().forEach(track => track.stop());
-    }
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-    }
-    setIsRecording(false);
-
-    if (currentPrompt < prompts.length - 1) {
-      setCurrentPrompt(prev => prev + 1);
-    } else {
-      onNext(recordings);
-    }
-  };
-
   const handleStartSection = () => {
     setIsStarted(true);
   };
 
   const playPrompt = () => {
-    playAudio(prompts[currentPrompt].audioUrl);
+    playAudio(questions[currentPrompt].text);
   };
 
   if (!isStarted) {
@@ -146,9 +144,9 @@ const ConversationSection: React.FC<ConversationSectionProps> = ({ onNext, promp
         <img src={gif} alt="AI assistant" />
       </div>
 
-      <p className="max-w-xl text-center text-gray-500">{prompts[currentPrompt].subtitle}</p>
+      <p className="max-w-xl text-center text-gray-500">{questions[currentPrompt].text}</p>
     </div>
   );
 };
 
-export default ConversationSection;
+export default SpeakingSection;

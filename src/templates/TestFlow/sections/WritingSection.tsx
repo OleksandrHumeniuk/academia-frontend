@@ -6,17 +6,13 @@ import AppCard from '@/components/AppCard/AppCard';
 import TestFlowPlaceholder from '@/templates/TestFlow/components/TestFlowPlaceholder';
 import TestTimer from '@/containers/TestTimer/TestTimer';
 
-type WritingPrompt = {
-  prompt: string;
-  minWords?: number;
-};
-
 type WritingSectionProps = {
   onNext: (responses: string[]) => void;
-  prompts: WritingPrompt[];
+  prompts: string[];
 };
 
 const WRITING_TIMER = 15 * 60; // 15 minutes
+const WRITING_MIN_WORDS = 70;
 
 const WritingSection: React.FC<WritingSectionProps> = ({ onNext, prompts }) => {
   const [isStarted, setIsStarted] = useState<boolean>(false);
@@ -79,7 +75,7 @@ const WritingSection: React.FC<WritingSectionProps> = ({ onNext, prompts }) => {
       <AppCard className="p-6">
         <div className="space-y-6">
           <div>
-            <h3 className="mb-4 text-lg font-medium">{currentPromptData.prompt}</h3>
+            <h3 className="mb-4 text-lg font-medium">{currentPromptData}</h3>
             <AppTextarea
               value={currentResponse}
               onChange={e => handleResponseChange(e.target.value)}
@@ -88,12 +84,12 @@ const WritingSection: React.FC<WritingSectionProps> = ({ onNext, prompts }) => {
             />
             <div className="mt-2 flex justify-between text-sm text-gray-500">
               <span>{wordCount} words</span>
-              {currentPromptData.minWords && <span>Minimum: {currentPromptData.minWords} words</span>}
+              <span>Minimum: {WRITING_MIN_WORDS} words</span>
             </div>
           </div>
           <AppButton
             className="w-full"
-            disabled={currentPromptData.minWords ? wordCount < currentPromptData.minWords : false}
+            disabled={WRITING_MIN_WORDS ? wordCount < WRITING_MIN_WORDS : false}
             onClick={handleNext}
           >
             {isLastPrompt ? 'Finish Section' : 'Next Prompt'}

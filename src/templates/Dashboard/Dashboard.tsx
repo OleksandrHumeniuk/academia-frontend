@@ -8,14 +8,8 @@ import { MOCK_PRACTICE_SECTIONS } from '@/constants/practice';
 import DashboardInitialModal from '@/templates/Dashboard/components/DashboardInitialModal';
 
 const Dashboard: React.FC = () => {
-  const [isInitialModalOpened, setIsInitialModalOpened] = useState<boolean>(
-    localStorage.getItem('isInitialModalOpened') !== 'true',
-  );
-
   return (
     <main className="flex-1 px-2 py-4 sm:px-8">
-      <DashboardInitialModal visible={isInitialModalOpened} setVisible={setIsInitialModalOpened} />
-
       <div className="mx-auto space-y-8">
         <div className="mb-6">
           <h2 className="mb-1 text-2xl font-semibold text-gray-900">Current English Level</h2>
@@ -27,7 +21,7 @@ const Dashboard: React.FC = () => {
             <AppCard className="flex flex-col bg-white p-8">
               <h2 className="mb-6 text-xl font-semibold text-black">Overall Proficiency</h2>
               <div className="flex flex-1 justify-center">
-                <ProficiencyProgress level="B1" nextLevel="B2" percentage={75} />
+                <ProficiencyProgress level="B1" percentage={75} />
               </div>
             </AppCard>
 

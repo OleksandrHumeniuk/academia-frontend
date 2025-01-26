@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
+import AuthAPI from '@/api/AuthAPI/AuthAPI';
+import PracticeAPI from '@/api/PracticeAPI/PracticeAPI';
+import TestAPI from '@/api/TestAPI/TestAPI';
 import PageLayout from '@/layouts/PageLayout/PageLayout';
 import TestFlowLayout from '@/layouts/TestFlowLayout/TestFlowLayout';
 import Dashboard from '@/templates/Dashboard/Dashboard';
@@ -12,11 +15,8 @@ import History from '@/templates/History/History';
 import PracticeSection from '@/templates/PracticeSection/PracticeSection';
 import Profile from '@/templates/Profile/Profile';
 import Login from '@/templates/Login/Login';
-import AuthAPI from '@/api/AuthAPI/AuthAPI';
-import PracticeAPI from '@/api/PracticeAPI/PracticeAPI';
-import TestAPI from '@/api/TestAPI/TestAPI';
-import useStore from '@/context/store/useStore';
 import Loading from '@/templates/Loading/Loading';
+import useStore from '@/context/store/useStore';
 
 const App: React.FC = () => {
   const { setUser, setPractice, setTest } = useStore();
@@ -122,8 +122,15 @@ const App: React.FC = () => {
           </TestFlowLayout>
         }
       />
+      <Route
+        path="/results/:resultId"
+        element={
+          <TestFlowLayout>
+            <TestResults />
+          </TestFlowLayout>
+        }
+      />
       <Route path="/components" element={<Testing />} />
-      <Route path="/results" element={<TestResults />} />
     </Routes>
   );
 };

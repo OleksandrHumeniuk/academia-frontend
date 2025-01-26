@@ -17,13 +17,14 @@ const DashboardInitialModal: React.FC<DashboardInitialModalProps> = ({ visible, 
   const [profession, setProfession] = useState<string>('tech');
 
   const handleStartAssessment = (): void => {
+    setVisible(false);
     localStorage.setItem('isInitialModalOpened', 'true');
     navigate('/test');
   };
 
   return (
-    <AppDialog open={visible} onOpenChange={setVisible}>
-      <AppDialog.Content className="sm:max-w-md">
+    <AppDialog open={visible} onOpenChange={() => {}}>
+      <AppDialog.Content className="sm:max-w-md" canClose={false}>
         <div className="space-y-6 py-4">
           <div className="space-y-2">
             <h2 className="text-2xl font-bold">Welcome to Explore!</h2>
