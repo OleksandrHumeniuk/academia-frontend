@@ -3,8 +3,11 @@ import React from 'react';
 import AppCard from '@/components/AppCard/AppCard';
 import AppLabel from '@/components/AppLabel/AppLabel';
 import AppInput from '@/components/AppInput/AppInput';
+import useStore from '@/context/store/useStore';
 
 const Profile: React.FC = () => {
+  const { user } = useStore();
+
   return (
     <main className="flex-1 px-2 py-4 sm:px-8">
       <div className="mb-6">
@@ -16,17 +19,17 @@ const Profile: React.FC = () => {
         <div className="space-y-4">
           <div className="space-y-2">
             <AppLabel htmlFor="name">Full Name</AppLabel>
-            <AppInput id="name" readOnly value="John Doe" placeholder="Enter your full name" />
+            <AppInput id="name" readOnly value={user?.info.name} placeholder="Enter your full name" />
           </div>
 
           <div className="space-y-2">
             <AppLabel htmlFor="email">Email</AppLabel>
-            <AppInput id="email" type="email" value="john.doe@example.com" placeholder="Enter your email" />
+            <AppInput id="email" type="email" value={user?.info.email} placeholder="Enter your email" />
           </div>
 
           <div className="space-y-2">
             <AppLabel htmlFor="profession">Profession</AppLabel>
-            <AppInput id="profession" value="Software Engineer" placeholder="Enter your profession" />
+            <AppInput id="profession" value={user?.info.profession} placeholder="Enter your profession" />
           </div>
         </div>
       </AppCard>
