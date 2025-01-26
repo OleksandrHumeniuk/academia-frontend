@@ -1,11 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import AppCard from '@/components/AppCard/AppCard';
 import ProficiencyProgress from '@/containers/ProficiencyProgress/ProficiencyProgress';
 import SkillsRadarChart from '@/containers/SkillsRadarChart/SkillsRadarChart';
 import PracticeCard from '@/containers/PracticeCard/PracticeCard';
 import { MOCK_PRACTICE_SECTIONS } from '@/constants/practice';
-import DashboardInitialModal from '@/templates/Dashboard/components/DashboardInitialModal';
 
 const Dashboard: React.FC = () => {
   return (

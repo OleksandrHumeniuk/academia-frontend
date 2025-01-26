@@ -64,3 +64,14 @@ export type TestResult = {
   createdAt: string;
   updatedAt: string;
 };
+
+export type TestResultPreview = {
+  _id: string;
+  testId: string;
+  userId: string;
+  scores: SkillScore[];
+  englishLevel: EnglishLevel;
+  scoreToNext: number;
+  createdAt: string;
+  updatedAt: string;
+};

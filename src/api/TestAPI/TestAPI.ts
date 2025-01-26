@@ -2,7 +2,7 @@ import client from '../client';
 import { mockTest, mockTestResult } from './TestAPI.mock';
 
 import type { Test } from '@/types/test';
-import type { TestResult } from '@/types/result';
+import type { TestResult, TestResultPreview } from '@/types/result';
 
 class TestAPI {
   public static getUserTest = async (): Promise<Test> => {
@@ -26,6 +26,17 @@ class TestAPI {
     };
 
     const response = await client.get(`/test/result/${resultId}`);
+    return response.data;
+  };
+
+  public static getAllResults = async (): Promise<TestResultPreview[]> => {
+    await new Promise(resolve => {
+      setTimeout(resolve, 2000);
+    });
+
+    return [mockTestResult, mockTestResult];
+
+    const response = await client.get('/test/result');
     return response.data;
   };
 

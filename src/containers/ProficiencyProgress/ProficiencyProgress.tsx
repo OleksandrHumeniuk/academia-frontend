@@ -1,6 +1,7 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 
 import AppProgress from '@/components/AppProgress/AppProgress';
+import getNextLevel from '@/utils/getNextLevel';
 
 import type { EnglishLevel } from '@/types/result';
 
@@ -10,11 +11,7 @@ type ProficiencyProgressProps = {
 };
 
 const ProficiencyProgress: React.FC<ProficiencyProgressProps> = ({ level, percentage }) => {
-  const nextLevel = useMemo<EnglishLevel | null>(() => {
-    const levels: EnglishLevel[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
-    const currentIndex = levels.indexOf(level);
-    return currentIndex < levels.length - 1 ? levels[currentIndex + 1] : null;
-  }, [level]);
+  const nextLevel = getNextLevel(level);
 
   return (
     <div>
