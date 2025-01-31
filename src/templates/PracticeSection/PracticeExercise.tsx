@@ -6,78 +6,31 @@ import AppProgress from '@/components/AppProgress/AppProgress';
 import AppLabel from '@/components/AppLabel/AppLabel';
 import AppDialog from '@/components/AppDialog/AppDialog';
 import AppRadioGroup from '@/components/AppRadioGroup/AppRadioGroup';
-
-type Question = {
-  id: number;
-  text: string;
-  options: string[];
-  correctAnswer: number;
-  explanation: string;
-};
+import PracticeAPI from '@/api/PracticeAPI/PracticeAPI';
+import useStore from '@/context/store/useStore';
 
 type PracticeExerciseProps = {
   open?: boolean;
   onClose?: () => void;
   topicTitle?: string;
-  type?: 'grammar' | 'vocabulary';
+  totalQuestions: number;
+  questions: any[];
+  initalQuestionIndex: number;
 };
-
-const grammarQuestions: Question[] = [
-  {
-    id: 1,
-    text: 'Which sentence uses the present continuous tense correctly?',
-    options: [
-      'I am write a letter now.',
-      'I am writing a letter now.',
-      'I writing a letter now.',
-      'I write a letter now.',
-    ],
-    correctAnswer: 1,
-    explanation: "The present continuous tense uses 'am/is/are' + verb-ing to describe actions happening now.",
-  },
-  {
-    id: 2,
-    text: 'Select the correct form of the verb:',
-    options: [
-      'She have been studying all day.',
-      'She has been studying all day.',
-      'She is been studying all day.',
-      'She been studying all day.',
-    ],
-    correctAnswer: 1,
-    explanation: "With third-person singular (she/he/it), we use 'has been' in the present perfect continuous.",
-  },
-];
-
-const vocabularyQuestions: Question[] = [
-  {
-    id: 1,
-    text: "Fill in the blank: The company's _____ to sustainability has led to numerous environmental initiatives.",
-    options: ['commitment', 'commission', 'commendation', 'communion'],
-    correctAnswer: 0,
-    explanation: 'Happy and excited are synonyms that mean the same thing.',
-  },
-  {
-    id: 2,
-    text: "What's the word? The researcher made a significant _____ in cancer treatment.",
-    options: ['breakthrough', 'breakout', 'breakdown', 'breakup'],
-    correctAnswer: 1,
-    explanation: 'Slow is the opposite of fast.',
-  },
-];
 
 const PracticeExercise: React.FC<PracticeExerciseProps> = ({
   open = true,
   onClose = () => {},
   topicTitle = 'Present Tense',
-  type = 'grammar',
+  totalQuestions,
+  questions,
+  initalQuestionIndex,
 }) => {
-  const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+  const [currentQuestion, setCurrentQuestion] = useState<number>(initalQuestionIndex);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showFeedback, setShowFeedback] = useState(false);
 
-  const questions = type === 'grammar' ? grammarQuestions : vocabularyQuestions;
-  const totalQuestions = questions.length;
+  const { setPractice } = useStore();
 
   const handleNext = (): void => {
     if (currentQuestion < totalQuestions - 1) {
@@ -91,6 +44,30 @@ const PracticeExercise: React.FC<PracticeExerciseProps> = ({
 
   const handleCheck = (): void => {
     setShowFeedback(true);
+
+    // setPractice(practice => {
+    //   if (!practice) return null;
+
+    //   // Create a deep copy of the practice object
+    //   const updatedPractice = {
+    //     ...practice,
+    //     [section]: currentPractice[section].map((topic: PracticeTopic) => {
+    //       if (topic.name === topicName) {
+    //         return {
+    //           ...topic,
+    //           progress: topic.progress + 1,
+    //         };
+    //       }
+    //       return topic;
+    //     }),
+    //   };
+
+    //   return updatedPractice as Practice;
+    // });
+
+    PracticeAPI.submitAnswer('vocabulary', topicTitle)
+      .then(res => console.log(res))
+      .catch(e => console.log(e));
   };
 
   const isCorrect = selectedAnswer === questions[currentQuestion].correctAnswer;

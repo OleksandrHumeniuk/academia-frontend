@@ -5,9 +5,10 @@ import AppButton from '@/components/AppButton/AppButton';
 export type AppAgentProps = {
   buttonText?: string;
   onClick?: () => void;
+  size?: number;
 };
 
-const AppAgent: React.FC<AppAgentProps> = ({ buttonText, onClick }) => {
+const AppAgent: React.FC<AppAgentProps> = ({ buttonText, onClick, size }) => {
   return (
     <div className="relative mx-auto mt-8 size-[350px] h-auto max-w-full">
       {buttonText && (
@@ -19,7 +20,9 @@ const AppAgent: React.FC<AppAgentProps> = ({ buttonText, onClick }) => {
           {buttonText}
         </AppButton>
       )}
-      <img src="/ai.gif" alt="Ai gif" />
+      <div className="rounded-full overflow-hidden">
+        <img src="/ai.gif" alt="Ai gif" width={size} height={size} />
+      </div>
     </div>
   );
 };

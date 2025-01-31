@@ -20,7 +20,7 @@ export type VocabularyPassage = {
 };
 
 export type VocabularySection = {
-  passages: VocabularyPassage[];
+  questions: VocabularyQuestion[];
 };
 
 export type WritingSection = {

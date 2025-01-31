@@ -16,7 +16,7 @@ type ConversationSectionProps = {
 const RECORDING_DURATION = 40;
 
 const SpeakingSection: React.FC<ConversationSectionProps> = ({ onNext, questions }) => {
-  const { playAudio, isPlaying } = useAudio();
+  const { playAudio, isPlaying, pauseAudio } = useAudio();
   const mediaRecorder = useRef<MediaRecorder | null>(null);
 
   const [isStarted, setIsStarted] = useState(false);
@@ -43,6 +43,7 @@ const SpeakingSection: React.FC<ConversationSectionProps> = ({ onNext, questions
     if (timerRef.current) {
       clearInterval(timerRef.current);
     }
+
     setIsRecording(false);
 
     if (currentPrompt < questions.length - 1) {
@@ -54,6 +55,7 @@ const SpeakingSection: React.FC<ConversationSectionProps> = ({ onNext, questions
 
   const startRecording = async () => {
     try {
+      pauseAudio();
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       mediaRecorder.current = new MediaRecorder(stream);
 
@@ -70,7 +72,7 @@ const SpeakingSection: React.FC<ConversationSectionProps> = ({ onNext, questions
       timerRef.current = setInterval(() => {
         setTimeLeft(prev => {
           if (prev <= 1) {
-            stopRecording();
+            stopRecording(); // todo
             return 0;
           }
           return prev - 1;
@@ -86,7 +88,8 @@ const SpeakingSection: React.FC<ConversationSectionProps> = ({ onNext, questions
   };
 
   const playPrompt = () => {
-    playAudio(questions[currentPrompt].text);
+    const audioUrl = questions[currentPrompt]?.url || '/audio/rustam-speaking-1.mp3';
+    playAudio(audioUrl);
   };
 
   if (!isStarted) {
@@ -108,7 +111,7 @@ const SpeakingSection: React.FC<ConversationSectionProps> = ({ onNext, questions
       <h1 className="mb-4 text-2xl font-semibold">Part 4 – Speaking</h1>
 
       <div className="text-center text-gray-600">
-        <p>Question {currentPrompt + 1} of 1</p>
+        <p>Question {currentPrompt + 1} of 2</p>
         {isRecording && <p className="mt-2 text-xl">Time remaining: {timeLeft}s</p>}
       </div>
 

@@ -4,14 +4,16 @@ import { Timer } from 'lucide-react';
 import formatTimer from '@/utils/formatTimer';
 
 export type TimerProps = {
-  time: number;
+  timeLeft: number;
   onTimeOver: () => void;
+  isRunning: boolean;
+  setTimeLeft: (prev: number) => void;
 };
 
-const TestTimer: React.FC<TimerProps> = ({ time, onTimeOver }) => {
-  const [timeLeft, setTimeLeft] = useState<number>(time);
-
+const ConversationTimer: React.FC<TimerProps> = ({ timeLeft, setTimeLeft, onTimeOver, isRunning }) => {
   useEffect(() => {
+    if (!isRunning) return;
+
     const timer = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 0) {
@@ -23,9 +25,8 @@ const TestTimer: React.FC<TimerProps> = ({ time, onTimeOver }) => {
       });
     }, 1000);
 
-    // eslint-disable-next-line consistent-return
     return () => clearInterval(timer);
-  }, []);
+  }, [isRunning, onTimeOver]);
 
   return (
     <div className="flex items-center gap-2 font-medium">
@@ -35,4 +36,4 @@ const TestTimer: React.FC<TimerProps> = ({ time, onTimeOver }) => {
   );
 };
 
-export default TestTimer;
+export default ConversationTimer;

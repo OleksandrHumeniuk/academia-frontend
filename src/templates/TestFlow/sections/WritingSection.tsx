@@ -7,7 +7,7 @@ import TestFlowPlaceholder from '@/templates/TestFlow/components/TestFlowPlaceho
 import TestTimer from '@/containers/TestTimer/TestTimer';
 
 type WritingSectionProps = {
-  onNext: (responses: string[]) => void;
+  onNext: (responses: { prompt: string; answer: string }[]) => void;
   prompts: string[];
 };
 
@@ -18,7 +18,9 @@ const WritingSection: React.FC<WritingSectionProps> = ({ onNext, prompts }) => {
   const [isStarted, setIsStarted] = useState<boolean>(false);
 
   const [currentPrompt, setCurrentPrompt] = useState(0);
-  const [responses, setResponses] = useState<string[]>(new Array(prompts.length).fill(''));
+  const [responses, setResponses] = useState<{ prompt: string; answer: string }[]>(
+    prompts.map(prompt => ({ prompt, answer: '' })),
+  );
 
   const handleStartSection = (): void => {
     setIsStarted(true);
@@ -28,10 +30,10 @@ const WritingSection: React.FC<WritingSectionProps> = ({ onNext, prompts }) => {
     onNext(responses);
   };
 
-  const handleResponseChange = (value: string) => {
-    const newResponses = [...responses];
-    newResponses[currentPrompt] = value;
-    setResponses(newResponses);
+  const handleResponseChange = (value: string): void => {
+    setResponses(prevAnswers =>
+      prevAnswers.map((item, index) => (index === currentPrompt ? { ...item, answer: value } : item)),
+    );
   };
 
   const handleNext = () => {
@@ -43,7 +45,7 @@ const WritingSection: React.FC<WritingSectionProps> = ({ onNext, prompts }) => {
   };
 
   const currentResponse = responses[currentPrompt];
-  const wordCount = currentResponse.trim().split(/\s+/).length;
+  const wordCount = currentResponse.answer.trim().split(/\s+/).length;
   const currentPromptData = prompts[currentPrompt];
   const isLastPrompt = currentPrompt === prompts.length - 1;
 
@@ -77,7 +79,7 @@ const WritingSection: React.FC<WritingSectionProps> = ({ onNext, prompts }) => {
           <div>
             <h3 className="mb-4 text-lg font-medium">{currentPromptData}</h3>
             <AppTextarea
-              value={currentResponse}
+              value={currentResponse.answer}
               onChange={e => handleResponseChange(e.target.value)}
               placeholder="Type your response here..."
               className="min-h-[200px]"

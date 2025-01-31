@@ -1,47 +1,43 @@
 import React, { useState } from 'react';
 
-import AppCard from '@/components/AppCard/AppCard';
-import AppRadioGroup from '@/components/AppRadioGroup/AppRadioGroup';
 import AppButton from '@/components/AppButton/AppButton';
 import AppLabel from '@/components/AppLabel/AppLabel';
-import AppScrollArea from '@/components/AppScrollArea/AppScrollArea';
+import AppCard from '@/components/AppCard/AppCard';
+import AppRadioGroup from '@/components/AppRadioGroup/AppRadioGroup';
 import TestFlowPlaceholder from '@/templates/TestFlow/components/TestFlowPlaceholder';
 import TestTimer from '@/containers/TestTimer/TestTimer';
 
-import type { VocabularyPassage } from '@/types/test';
+import type { VocabularyQuestion } from '@/types/test';
 
 type VocabularySectionProps = {
-  onNext: (answers: number[]) => void;
-  passages: VocabularyPassage[];
+  onNext: (answers: { question: string; answer: string | number }[]) => void;
+  questions: VocabularyQuestion[];
 };
 
-const VOCABULARY_TIMER = 15 * 60; // 15 minutes
+const VOCABULARY_TIMER = 10 * 60; // 10 minutes
 
-const VocabularySection: React.FC<VocabularySectionProps> = ({ passages, onNext }) => {
+const VocabularySection: React.FC<VocabularySectionProps> = ({ questions, onNext }) => {
   const [isStarted, setIsStarted] = useState<boolean>(false);
 
-  const [currentPassage, setCurrentPassage] = useState<number>(0);
-  const [currentQuestion, setCurrentQuestion] = useState<number>(0);
+  const [activeQuestionIndex, setActiveQuestionIndex] = useState<number>(0);
+  const [answers, setAnswers] = useState<{ question: string; answer: string }[]>(
+    questions.map(q => ({ question: q.text, answer: '', isCorrect: false })),
+  );
 
-  const totalQuestions = passages.reduce((sum, passage) => sum + passage.questions.length, 0);
-  const [answers, setAnswers] = useState<number[]>(new Array(totalQuestions).fill(-1));
-
-  const getCurrentAnswerIndex = () => {
-    let index = currentQuestion;
-    for (let i = 0; i < currentPassage; i++) {
-      index += passages[i].questions.length;
-    }
-    return index;
-  };
-
-  const handleAnswerChange = (value: string): void => {
-    const newAnswers = [...answers];
-    newAnswers[getCurrentAnswerIndex()] = parseInt(value);
-    setAnswers(newAnswers);
-  };
+  const question = questions[activeQuestionIndex];
 
   const handleStartSection = (): void => {
     setIsStarted(true);
+  };
+
+  const handleAnswerChange = (value: string): void => {
+    setAnswers(prevAnswers =>
+      prevAnswers.map((item, index) =>
+        index === activeQuestionIndex
+          ? { ...item, answer: value, isCorrect: questions[activeQuestionIndex].correctAnswer === index }
+          : item,
+      ),
+    );
   };
 
   const handleFinishSection = (): void => {
@@ -49,24 +45,12 @@ const VocabularySection: React.FC<VocabularySectionProps> = ({ passages, onNext 
   };
 
   const handleNext = (): void => {
-    const currentPassageQuestions = passages[currentPassage].questions;
-
-    if (currentQuestion < currentPassageQuestions.length - 1) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else if (currentPassage < passages.length - 1) {
-      setCurrentPassage(currentPassage + 1);
-      setCurrentQuestion(0);
-    } else {
-      handleFinishSection();
+    if (activeQuestionIndex < questions.length - 1) {
+      setActiveQuestionIndex(activeQuestionIndex + 1);
+      return;
     }
-  };
 
-  const getCurrentQuestionNumber = () => {
-    let questionNumber = currentQuestion + 1;
-    for (let i = 0; i < currentPassage; i++) {
-      questionNumber += passages[i].questions.length;
-    }
-    return questionNumber;
+    handleFinishSection();
   };
 
   if (!isStarted) {
@@ -83,45 +67,45 @@ const VocabularySection: React.FC<VocabularySectionProps> = ({ passages, onNext 
     );
   }
 
-  const currentPassageData = passages[currentPassage];
-  const isLastQuestion =
-    currentPassage === passages.length - 1 && currentQuestion === currentPassageData.questions.length - 1;
-
   return (
     <div className="relative">
-      <TestTimer time={VOCABULARY_TIMER} onTimeOver={handleFinishSection} />
+      <div className="right-[12px] top-[6px] sm:absolute">
+        <TestTimer time={VOCABULARY_TIMER} onTimeOver={handleFinishSection} />
+      </div>
 
       <div className="mb-8">
-        <h1 className="mb-4 text-2xl font-semibold">Part 2 – Vocabulary</h1>
+        <h1 className="mb-4 text-2xl font-semibold">Part 2 - Vocabulary</h1>
         <p className="text-gray-600">
-          Question {getCurrentQuestionNumber()} of {totalQuestions}
+          Question {activeQuestionIndex + 1} of {questions.length}
         </p>
       </div>
 
-      <AppCard className="p-6">
-        <AppScrollArea className="mb-6 h-[300px] rounded-md border p-4">
-          <div className="text-sm leading-relaxed">{currentPassageData.text}</div>
-        </AppScrollArea>
-
+      <AppCard className="rounded-xl p-6">
         <div className="space-y-6">
-          <div>
-            <h3 className="mb-4 text-lg font-medium">{currentPassageData.questions[currentQuestion].text}</h3>
-            <AppRadioGroup
-              value={answers[getCurrentAnswerIndex()].toString()}
+          <div className="space-y-4">
+            <p className="mb-6 text-lg">{question.text}</p>
+
+            <AppRadioGroup //
+              value={answers[activeQuestionIndex].answer}
+              className="space-y-3"
               onValueChange={handleAnswerChange}
-              className="space-y-4"
             >
-              {currentPassageData.questions[currentQuestion].options.map((option, index) => (
+              {question.options.map((option, index) => (
                 <div key={option} className="flex items-center space-x-2">
-                  <AppRadioGroup.Item value={index.toString()} id={`option-${index}`} />
+                  <AppRadioGroup.Item value={option} id={`option-${index}`} />
                   <AppLabel htmlFor={`option-${index}`}>{option}</AppLabel>
                 </div>
               ))}
             </AppRadioGroup>
           </div>
 
-          <AppButton className="w-full" disabled={answers[getCurrentAnswerIndex()] === -1} onClick={handleNext}>
-            {isLastQuestion ? 'Finish Section' : 'Next Question'}
+          <AppButton
+            className="w-full" //
+            type="submit"
+            onClick={handleNext}
+            disabled={!answers[activeQuestionIndex]}
+          >
+            {activeQuestionIndex === questions.length - 1 ? 'Finish Section' : 'Next Question'}
           </AppButton>
         </div>
       </AppCard>

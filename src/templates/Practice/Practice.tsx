@@ -1,9 +1,8 @@
 import React from 'react';
-import { BookOpenCheck } from 'lucide-react';
+import { Book, BookOpenCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 import PracticeCard from '@/containers/PracticeCard/PracticeCard';
-import { MOCK_PRACTICE_SECTIONS } from '@/constants/practice';
 import useStore from '@/context/store/useStore';
 import AppAlert from '@/components/AppAlert/AppAlert';
 import AppButton from '@/components/AppButton/AppButton';
@@ -41,6 +40,7 @@ const Practice: React.FC = () => {
     );
   }
 
+  //TODO: add vocabulary an speaking
   return (
     <main className="flex-1 px-2 py-4 sm:px-8">
       <div className="mb-6">
@@ -49,9 +49,12 @@ const Practice: React.FC = () => {
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-        {MOCK_PRACTICE_SECTIONS.map(section => (
-          <PracticeCard {...section} />
-        ))}
+        <PracticeCard
+          icon={<Book className="size-8 text-primary" />}
+          title="Vocabulary"
+          exercises={practice.vocabulary}
+          type="vocabulary"
+        />
       </div>
     </main>
   );

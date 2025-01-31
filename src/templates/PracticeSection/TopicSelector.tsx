@@ -6,9 +6,10 @@ import AppProgress from '@/components/AppProgress/AppProgress';
 import PracticeExercise from './PracticeExercise';
 
 import type { Topic } from '@/types/topic';
+import { PracticeTopic } from '@/types/practice';
 
 type TopicSelectorProps = {
-  topics: Topic[];
+  topics: PracticeTopic[] | undefined;
   onSelectTopic?: (topicId: string) => void;
 };
 
@@ -16,6 +17,9 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ topics, onSelectTopic = (
   const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
 
   const handleTopicSelect = (topic: Topic) => {
+    if (Math.round((topic.progress / topic.questions.length) * 100) === 100) {
+      return;
+    }
     setSelectedTopic(topic);
     onSelectTopic(topic.id);
   };
@@ -32,17 +36,17 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ topics, onSelectTopic = (
             <div className="flex items-center justify-between">
               <div className="flex-1 space-y-2">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold">{topic.title}</h3>
+                  <h3 className="text-lg font-semibold">{topic.name}</h3>
                   <ChevronRight className="size-5 text-gray-400" />
                 </div>
                 <p className="text-sm text-gray-500">{topic.description}</p>
                 <div className="flex items-center justify-between text-sm">
                   <span className="text-gray-500">
-                    {topic.completed} of {topic.exercises} exercises
+                    {topic.progress} of {topic.questions.length} exercises
                   </span>
-                  <span className="font-medium">{topic.progress}%</span>
+                  <span className="font-medium">{Math.round((topic.progress / topic.questions.length) * 100)}%</span>
                 </div>
-                <AppProgress value={topic.progress} className="h-1.5" />
+                <AppProgress value={Math.round((topic.progress / topic.questions.length) * 100)} className="h-1.5" />
               </div>
             </div>
           </AppCard>
@@ -52,9 +56,11 @@ const TopicSelector: React.FC<TopicSelectorProps> = ({ topics, onSelectTopic = (
       {selectedTopic && (
         <PracticeExercise
           open={!!selectedTopic}
-          type={selectedTopic.type}
+          totalQuestions={selectedTopic.questions.length}
           onClose={() => setSelectedTopic(null)}
-          topicTitle={selectedTopic.title}
+          topicTitle={selectedTopic.name}
+          questions={selectedTopic.questions}
+          initalQuestionIndex={selectedTopic.progress}
         />
       )}
     </>

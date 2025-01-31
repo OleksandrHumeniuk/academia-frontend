@@ -5,16 +5,29 @@ import AppCard from '@/components/AppCard/AppCard';
 import AppInput from '@/components/AppInput/AppInput';
 import AppButton from '@/components/AppButton/AppButton';
 import AppLabel from '@/components/AppLabel/AppLabel';
+import AuthAPI from '@/api/AuthAPI/AuthAPI';
+import useStore from '@/context/store/useStore';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
+  const [error, setError] = useState(null); // show error
+  const { setUser } = useStore();
 
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    navigate('/');
+
+    AuthAPI.login(email, password)
+      .then(res => {
+        localStorage.setItem('token', res.token);
+        setUser(res.user);
+        navigate('/');
+      })
+      .catch(e => {
+        setError(e);
+      });
   };
 
   return (

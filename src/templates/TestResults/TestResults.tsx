@@ -4,7 +4,6 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import TestAPI from '@/api/TestAPI/TestAPI';
 import AppButton from '@/components/AppButton/AppButton';
-import AppLogo from '@/components/AppLogo/AppLogo';
 import AppScrollArea from '@/components/AppScrollArea/AppScrollArea';
 import AppCard from '@/components/AppCard/AppCard';
 import AppDialog from '@/components/AppDialog/AppDialog';
@@ -29,17 +28,17 @@ const TestResults: React.FC = () => {
   const loadResults = () => {
     if (!resultId) return;
 
-    TestAPI.getTestResult(resultId)
-      .then(response => {
-        setResults(response.results);
-        setTest(response.test);
-      })
-      .catch(() => {
-        navigate('/');
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    // TestAPI.getTestResult(resultId)
+    //   .then(response => {
+    //     setResults(response.results);
+    //     setTest(response.test);
+    //   })
+    //   .catch(() => {
+    //     navigate('/');
+    //   })
+    //   .finally(() => {
+    //     setIsLoading(false);
+    //   });
   };
 
   useEffect(loadResults, [resultId]);

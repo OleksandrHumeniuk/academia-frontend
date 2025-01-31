@@ -10,7 +10,7 @@ import TestTimer from '@/containers/TestTimer/TestTimer';
 import type { GrammarQuestion } from '@/types/test';
 
 type GrammarSectionProps = {
-  onNext: (answers: string[]) => void;
+  onNext: (answers: { question: string; answer: string | number }[]) => void;
   questions: GrammarQuestion[];
 };
 
@@ -20,7 +20,9 @@ const GrammarSection: React.FC<GrammarSectionProps> = ({ questions, onNext }) =>
   const [isStarted, setIsStarted] = useState<boolean>(false);
 
   const [activeQuestionIndex, setActiveQuestionIndex] = useState<number>(0);
-  const [answers, setAnswers] = useState<string[]>(new Array(questions.length).fill(''));
+  const [answers, setAnswers] = useState<{ question: string; answer: string; isCorrect: boolean }[]>(
+    questions.map(q => ({ question: q.text, answer: '', isCorrect: false })),
+  );
 
   const question = questions[activeQuestionIndex];
 
@@ -29,9 +31,13 @@ const GrammarSection: React.FC<GrammarSectionProps> = ({ questions, onNext }) =>
   };
 
   const handleAnswerChange = (value: string): void => {
-    const newAnswers = [...answers];
-    newAnswers[activeQuestionIndex] = value;
-    setAnswers(newAnswers);
+    setAnswers(prevAnswers =>
+      prevAnswers.map((item, index) =>
+        index === activeQuestionIndex
+          ? { ...item, answer: value, isCorrect: questions[activeQuestionIndex].correctAnswer === index }
+          : item,
+      ),
+    );
   };
 
   const handleFinishSection = (): void => {
@@ -62,7 +68,9 @@ const GrammarSection: React.FC<GrammarSectionProps> = ({ questions, onNext }) =>
 
   return (
     <div className="relative">
-      <TestTimer time={GRAMMAR_TIMER} onTimeOver={handleFinishSection} />
+      <div className="right-[12px] top-[6px] sm:absolute">
+        <TestTimer time={GRAMMAR_TIMER} onTimeOver={handleFinishSection} />
+      </div>
 
       <div className="mb-8">
         <h1 className="mb-4 text-2xl font-semibold">Part 1 - Grammar</h1>
@@ -77,7 +85,7 @@ const GrammarSection: React.FC<GrammarSectionProps> = ({ questions, onNext }) =>
             <p className="mb-6 text-lg">{question.text}</p>
 
             <AppRadioGroup //
-              value={answers[activeQuestionIndex]}
+              value={answers[activeQuestionIndex].answer}
               className="space-y-3"
               onValueChange={handleAnswerChange}
             >

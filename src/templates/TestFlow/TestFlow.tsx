@@ -31,17 +31,25 @@ const TestFlow: React.FC = () => {
 
     TestAPI.submitTest(answers)
       .then(resultId => {
-        navigate(`/results/${resultId}`);
+        // navigate(`/results/${resultId}`);
       })
       .finally(() => {
         setIsLoading(false);
       });
   };
 
-  const handleNext = (sectionAnswers?: string[] | number[] | string | Blob[]): void => {
+  const handleNext = (
+    sectionAnswers:
+      | { question: string; answer: string | number }[]
+      | { prompt: string; answer: string | number }[]
+      | Blob[],
+  ): void => {
     const sectionKey = ['vocabulary', 'grammar', 'writing', 'speaking'][activeStep];
 
-    setAnswers(prev => ({ ...prev, [sectionKey]: sectionAnswers }));
+    setAnswers(prev => ({
+      ...prev,
+      [sectionKey]: sectionAnswers,
+    }));
 
     if (activeStep === 3) {
       submitTest();
@@ -63,7 +71,7 @@ const TestFlow: React.FC = () => {
       case 1:
         return (
           <VocabularySection //
-            passages={test.vocabulary.passages}
+            questions={test.vocabulary.questions}
             onNext={handleNext}
           />
         );

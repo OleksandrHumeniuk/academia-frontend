@@ -19,17 +19,17 @@ const Profile: React.FC = () => {
         <div className="space-y-4">
           <div className="space-y-2">
             <AppLabel htmlFor="name">Full Name</AppLabel>
-            <AppInput id="name" readOnly value={user?.info.name} placeholder="Enter your full name" />
+            <AppInput id="name" readOnly value={user?.name} placeholder="Enter your full name" />
           </div>
 
           <div className="space-y-2">
             <AppLabel htmlFor="email">Email</AppLabel>
-            <AppInput id="email" type="email" value={user?.info.email} placeholder="Enter your email" />
+            <AppInput id="email" type="email" value={user?.email} placeholder="Enter your email" />
           </div>
 
           <div className="space-y-2">
             <AppLabel htmlFor="profession">Profession</AppLabel>
-            <AppInput id="profession" value={user?.info.profession} placeholder="Enter your profession" />
+            <AppInput id="profession" value={user?.profession} placeholder="Enter your profession" />
           </div>
         </div>
       </AppCard>

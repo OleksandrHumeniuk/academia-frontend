@@ -7,6 +7,7 @@ import AppSeparator from '@/components/AppSeparator/AppSeparator';
 import PageLayoutSidebar from './components/PageLayoutSidebar';
 import AppButton from '@/components/AppButton/AppButton';
 import cn from '@/utils/cn';
+import useStore from '@/context/store/useStore';
 
 export type PageLayoutProps = {
   children: React.ReactNode;
@@ -16,6 +17,8 @@ export type PageLayoutProps = {
 };
 
 const PageLayout: React.FC<PageLayoutProps> = ({ children, title, actions, backActions }) => {
+  const { user, practice } = useStore();
+
   return (
     <div className="h-screen">
       <AppSidebar.Provider>
@@ -28,7 +31,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({ children, title, actions, backA
               <h1 className="text-base font-light">{title}</h1>
             </div>
 
-            {(actions || backActions) && (
+            {(user?.results || practice) && (actions || backActions) && (
               <div className="fixed inset-x-0 bottom-0 z-10 gap-2 border-t bg-white p-4 sm:static sm:block sm:bg-transparent">
                 {actions && (
                   <div className="flex flex-col gap-2 sm:flex-row">

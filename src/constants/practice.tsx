@@ -20,6 +20,14 @@ export const MOCK_PRACTICE_SECTIONS: PracticeCardProps[] = [
     completed: 45,
     icon: <Book className="size-8 text-primary" />,
   },
+  {
+    title: 'Speaking',
+    type: 'speaking',
+    progress: 45,
+    exercises: 100,
+    completed: 45,
+    icon: <Book className="size-8 text-primary" />,
+  },
   // {
   //   title: 'Reading',
   //   type: 'reading',

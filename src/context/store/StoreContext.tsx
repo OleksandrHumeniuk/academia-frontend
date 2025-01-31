@@ -1,6 +1,6 @@
 import { createContext } from 'react';
 
-import type { UserData } from '@/types/user';
+import type { User, UserData } from '@/types/user';
 import type { Practice } from '@/types/practice';
 import type { Test } from '@/types/test';
 
