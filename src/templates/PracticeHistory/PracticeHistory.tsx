@@ -36,10 +36,10 @@ const PracticeHistory: React.FC = () => {
       <div className="mb-6">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="mb-1 text-2xl font-semibold text-gray-900">Speaking practice History</h2>
+            <h2 className="mb-1 text-2xl font-semibold text-gray-900">Speaking practice history</h2>
             <p className="text-gray-500">View your previous practice sessions</p>
           </div>
-          <AppButton onClick={handleNewSession}>Record new session</AppButton>
+          <AppButton onClick={handleNewSession}>Start new session</AppButton>
         </div>
       </div>
 

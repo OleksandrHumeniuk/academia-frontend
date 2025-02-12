@@ -26,7 +26,7 @@ const data = {
       items: [
         { title: 'Vocabulary', url: '/practice/vocabulary' },
         { title: 'Grammar', url: '/practice/grammar' },
-        { title: 'Reading', url: '/practice/reading' },
+        { title: 'Speaking', url: '/practice/speaking' },
         { title: 'Writing', url: '/practice/writing' },
       ],
     },
