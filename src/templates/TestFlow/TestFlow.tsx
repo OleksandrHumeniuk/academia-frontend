@@ -4,10 +4,13 @@ import { Link } from 'react-router-dom';
 import AppLogo from '@/components/AppLogo/AppLogo';
 import TestFlowStart from './components/TestFlowStart';
 import TestFlowQuestions from './components/TestFlowQuestions';
+import InitialQuestions from './components/InitialQuestions';
 import AppProgress from '@/components/AppProgress/AppProgress';
 
 const TestFlow: React.FC = () => {
   const [isStarted, setIsStarted] = useState<boolean>(false);
+
+  const [isInitialQuestionsAnswered, setIsInitialQuestionsAnswered] = useState(false);
 
   const [activeStep, setActiveStep] = useState<number>(0);
 
@@ -29,10 +32,16 @@ const TestFlow: React.FC = () => {
 
       <div className="flex flex-1 items-center justify-center p-4">
         <div className="w-full max-w-[700px] space-y-8 rounded-xl bg-white p-8 shadow-sm">
-          {isStarted ? (
-            <TestFlowQuestions activeStep={activeStep} onNextStep={handleNextStep} />
+          {isInitialQuestionsAnswered ? (
+            <div>
+              {isStarted ? (
+                <TestFlowQuestions activeStep={activeStep} onNextStep={handleNextStep} />
+              ) : (
+                <TestFlowStart onStart={handleStartTest} />
+              )}
+            </div>
           ) : (
-            <TestFlowStart onStart={handleStartTest} />
+            <InitialQuestions handleComplete={() => setIsInitialQuestionsAnswered(true)} />
           )}
         </div>
       </div>

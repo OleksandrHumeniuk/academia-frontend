@@ -12,8 +12,17 @@ type WritingSectionProps = {
   };
 };
 
+const answer =
+  'One of the most challenging concepts for me early on was understanding asynchronous programming, especially with JavaScript’s event loop, Promises, and async/await. Initially, I struggled with callbacks and race conditions, particularly when making API requests or handling real-time data.\n' +
+  '\n' +
+  'To overcome this, I started by breaking it down into smaller concepts—first understanding how the call stack, event queue, and microtasks work in the JavaScript runtime. Then, I practiced writing small scripts using callbacks, Promises, and eventually async/await to see how they compare.\n' +
+  '\n' +
+  'A big breakthrough came when I worked on a personal project that involved fetching and processing data from multiple APIs. I encountered issues where some API calls depended on others, leading to callback hell. By refactoring my code to use async/await with proper error handling, I was able to simplify my logic and make it more readable.\n' +
+  '\n' +
+  'Additionally, reading documentation, watching explainer videos, and reviewing open-source projects helped solidify my understanding. Now, I feel confident in handling async operations efficiently and debugging related issues when they arise.';
+
 const WritingSection: React.FC<WritingSectionProps> = ({ onNext, question }) => {
-  const [response, setResponse] = useState<string>('');
+  const [response, setResponse] = useState<string>(answer);
 
   const wordCount = response.trim().split(/\s+/).length;
 

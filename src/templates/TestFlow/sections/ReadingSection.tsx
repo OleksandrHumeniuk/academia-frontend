@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Markdown from 'react-markdown';
 
 import AppCard from '@/components/AppCard/AppCard';
 import AppRadioGroup from '@/components/AppRadioGroup/AppRadioGroup';
@@ -46,8 +47,10 @@ const ReadingSection: React.FC<ReadingSectionProps> = ({ question, onNext }) => 
       </div>
 
       <AppCard className="p-6">
-        <AppScrollArea className="mb-6 h-[300px] rounded-md border p-4">
-          <div className="text-sm leading-relaxed">{question.passage}</div>
+        <AppScrollArea className="mb-6 h-[240px] rounded-md border p-4">
+          <div className="text-sm leading-relaxed">
+            <Markdown>{question.passage}</Markdown>
+          </div>
         </AppScrollArea>
 
         <div className="space-y-6">

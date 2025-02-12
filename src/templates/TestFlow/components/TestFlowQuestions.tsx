@@ -37,7 +37,7 @@ const TestFlowQuestions: React.FC<TestFlowQuestionProps> = ({ activeStep, onNext
   };
 
   const handleNext = (sectionAnswers?: string[] | number[] | string): void => {
-    const sectionKey = ['vocabulary', 'grammar', 'reading', 'writing', 'conversation'][activeStep];
+    const sectionKey = ['vocabulary', 'grammar', 'writing', 'conversation'][activeStep];
 
     setAnswers(prev => ({ ...prev, [sectionKey]: sectionAnswers }));
 
@@ -54,27 +54,13 @@ const TestFlowQuestions: React.FC<TestFlowQuestionProps> = ({ activeStep, onNext
     switch (activeStep) {
       case 0:
         return (
-          <SingleChoiceSection
-            key="vocabulary" //
-            type="vocabulary"
-            questions={MOCK_QUESTIONS.vocabulary}
-            onNext={handleNext}
-          />
+          <SingleChoiceSection key="grammar" type="grammar" questions={MOCK_QUESTIONS.grammar} onNext={handleNext} />
         );
       case 1:
-        return (
-          <SingleChoiceSection
-            key="grammar" //
-            type="grammar"
-            questions={MOCK_QUESTIONS.grammar}
-            onNext={handleNext}
-          />
-        );
+        return <ReadingSection question={MOCK_QUESTIONS.vocabulary} onNext={handleNext} />;
       case 2:
-        return <ReadingSection question={MOCK_QUESTIONS.reading} onNext={handleNext} />;
-      case 3:
         return <WritingSection onNext={handleNext} question={MOCK_QUESTIONS.writing} />;
-      case 4:
+      case 3:
         return <ConversationSection onNext={handleNext} />;
       default:
         return null;

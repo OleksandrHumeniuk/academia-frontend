@@ -11,6 +11,7 @@ import History from '@/templates/History/History';
 import PracticeSection from '@/templates/PracticeSection/PracticeSection';
 import Profile from '@/templates/Profile/Profile';
 import Login from '@/templates/Login/Login';
+import PracticeHistory from '@/templates/PracticeHistory/PracticeHistory';
 
 const App: React.FC = () => {
   return (
@@ -40,6 +41,14 @@ const App: React.FC = () => {
         }
       />
       <Route
+        path="/practice/:section/practice-history"
+        element={
+          <PageLayout title="Practice" backActions>
+            <PracticeHistory />
+          </PageLayout>
+        }
+      />
+      <Route
         path="/history"
         element={
           <PageLayout title="History">
@@ -55,10 +64,7 @@ const App: React.FC = () => {
           </PageLayout>
         }
       />
-      <Route
-        path="/login"
-        element={<Login />}
-      />
+      <Route path="/login" element={<Login />} />
       <Route path="/test" element={<TestFlow />} />
       <Route path="/components" element={<Testing />} />
       <Route path="/results" element={<TestResults />} />

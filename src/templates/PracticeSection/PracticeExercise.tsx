@@ -19,7 +19,7 @@ type PracticeExerciseProps = {
   open?: boolean;
   onClose?: () => void;
   topicTitle?: string;
-  type?: 'grammar' | 'vocabulary';
+  type?: 'grammar' | 'vocabulary' | 'speaking';
 };
 
 const grammarQuestions: Question[] = [

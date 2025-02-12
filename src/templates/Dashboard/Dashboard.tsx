@@ -37,8 +37,8 @@ const Dashboard: React.FC = () => {
                 <SkillsRadarChart
                   scores={[
                     { skill: 'Speaking', score: 75 },
-                    { skill: 'Listening', score: 80 },
-                    { skill: 'Reading', score: 85 },
+                    { skill: 'Fluency', score: 80 },
+                    { skill: 'Pronunciation', score: 85 },
                     { skill: 'Writing', score: 70 },
                     { skill: 'Grammar', score: 90 },
                   ]}
@@ -55,7 +55,7 @@ const Dashboard: React.FC = () => {
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
           {MOCK_PRACTICE_SECTIONS.map(section => (
-            <PracticeCard {...section} />
+            <PracticeCard key={section.title} {...section} />
           ))}
         </div>
       </div>

@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom';
 import TopicSelector from './TopicSelector';
 import {
   MOCK_GRAMMAR_TOPICS,
-  MOCK_READING_TOPICS,
+  // MOCK_READING_TOPICS,
+  MOCK_SPEAKING_TOPICS,
   MOCK_VOCABULARY_TOPICS,
   MOCK_WRITING_TOPICS,
 } from '@/constants/topics';
@@ -20,8 +21,10 @@ const PracticeSection: React.FC = () => {
         return MOCK_VOCABULARY_TOPICS;
       case 'grammar':
         return MOCK_GRAMMAR_TOPICS;
-      case 'reading':
-        return MOCK_READING_TOPICS;
+      // case 'reading':
+      //   return MOCK_READING_TOPICS;
+      case 'speaking':
+        return MOCK_SPEAKING_TOPICS;
       case 'writing':
         return MOCK_WRITING_TOPICS;
       default:

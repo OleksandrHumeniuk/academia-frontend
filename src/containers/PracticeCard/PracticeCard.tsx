@@ -9,7 +9,7 @@ export type PracticeCardProps = {
   progress: number;
   exercises: number;
   completed: number;
-  type: 'grammar' | 'vocabulary' | 'reading' | 'writing';
+  type: 'grammar' | 'vocabulary' | 'reading' | 'writing' | 'speaking';
   icon: React.ReactNode;
 };
 

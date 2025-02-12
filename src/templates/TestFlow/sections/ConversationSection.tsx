@@ -34,7 +34,7 @@ const ConversationSection: React.FC<ConversationSectionProps> = ({ onNext }: Con
       </div>
 
       <p className="text-center text-gray-600">
-        Can you discuss the pros and cons of using social media? Please provide at least two points for both sides.
+        What area of software development interests you the most, and what attracts you to it?
       </p>
     </div>
   );
