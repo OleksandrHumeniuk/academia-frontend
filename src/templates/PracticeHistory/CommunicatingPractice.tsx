@@ -13,7 +13,7 @@ interface IProps {
 
 interface Message {
   id: number;
-  sender: 'HR' | 'You' | 'John';
+  sender: string;
   text: string;
 }
 
@@ -63,8 +63,22 @@ const speaking: Message[] = [
 ];
 
 const writing: Message[] = [
-  { id: 1, sender: 'You', text: 'Hello! It seems like our servers are down...' },
-  { id: 2, sender: 'John', text: 'Hi! Wait, WHAT?' },
+  {
+    id: 1,
+    sender: 'You',
+    text: "<b>@Alice</b> Hey, I think we have an issue—I'm getting a 500 error on all requests. The production server might be down.",
+  },
+  { id: 2, sender: 'Alice (Senior Dev)', text: 'Thanks for flagging this! Did you check the monitoring dashboard?' },
+  { id: 3, sender: 'You', text: 'Yeah, I saw a CPU usage spike right before it went down. No recent deployments.' },
+  {
+    id: 4,
+    sender: 'Alice (Senior Dev)',
+    text: 'Got it. I’ll check the logs… Looks like a memory issue. Restarting the services now.',
+  },
+  { id: 5, sender: 'You', text: 'Okay, let me know when it’s back up, and I’ll test again.' },
+  { id: 6, sender: 'Alice (Senior Dev)', text: 'Just restarted. Can you check?' },
+  { id: 7, sender: 'You', text: 'Yep, everything’s working now! Thanks, Alice.' },
+  { id: 8, sender: 'Alice (Senior Dev)', text: 'No problem! Let’s dig into the root cause later.' },
 ];
 
 const CommunicatingPractice: React.FC<IProps> = ({ open, onClose, type }) => {
@@ -83,7 +97,9 @@ const CommunicatingPractice: React.FC<IProps> = ({ open, onClose, type }) => {
               </div>
 
               {/* Chat messages container */}
-              <div className={`h-[${type === 'writing' ? 400 : 500}px] overflow-y-auto rounded-lg bg-gray-50 p-4`}>
+              <div
+                className={`${type === 'writing' ? 'h-[400px]' : 'h-[500px]'} overflow-y-auto rounded-lg bg-gray-50 p-4`}
+              >
                 <div className="flex flex-col gap-4">
                   {messages.map(message => (
                     <div
@@ -92,12 +108,12 @@ const CommunicatingPractice: React.FC<IProps> = ({ open, onClose, type }) => {
                     >
                       <div
                         className={`max-w-[70%] rounded-lg p-3 ${
-                          message.sender !== 'You' ? 'bg-primary text-white' : 'bg-white shadow-sm'
+                          message.sender !== 'You' ? 'bg-gray-700 text-white' : 'bg-white shadow-sm'
                         }`}
                       >
                         <div className="mb-1 text-xs font-semibold">{message.sender}</div>
                         <div
-                          className="text-sm [&>span]:mt-1 [&>span]:italic [&>span]:text-red-500"
+                          className="text-sm [&>b]:text-blue-400 [&>span]:mt-1 [&>span]:italic [&>span]:text-red-500"
                           dangerouslySetInnerHTML={{ __html: message.text }}
                         />
                       </div>
