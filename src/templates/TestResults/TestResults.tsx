@@ -148,44 +148,45 @@ const TestResults: React.FC<TestResultsProps> = ({
           <AppScrollArea className="max-h-[60vh] pr-4">
             <div className="space-y-8 py-4">
               {/* Vocabulary Section */}
-              {answers?.vocabulary && (
-                <div className="space-y-4">
-                  <h3 className="text-lg font-semibold">Vocabulary</h3>
-                  {questions.vocabulary.map((question, index) => (
-                    <AppCard key={index} className="space-y-4 p-4">
-                      <div>
-                        <p className="mb-2 text-sm font-medium text-gray-600">Question:</p>
-                        <p>{question.text}</p>
-                      </div>
-                      <div>
-                        <p className="mb-2 text-sm font-medium text-gray-600">Your Answer:</p>
-                        <div
-                          className={`flex items-center gap-2 ${answers.vocabulary[index].isCorrect ? 'text-green-600' : 'text-red-600'}`}
-                        >
-                          {answers.vocabulary[index].isCorrect ? (
-                            <Check className="size-4" />
-                          ) : (
-                            <X className="size-4" />
-                          )}
-                          <p>{answers.vocabulary[index].selectedAnswer}</p>
-                        </div>
-                        {!answers.vocabulary[index].isCorrect && (
-                          <div className="mt-2 flex items-center gap-2 text-green-600">
-                            <Check className="size-4" />
-                            <p>Correct answer: {question.answer}</p>
-                          </div>
-                        )}
-                      </div>
-                    </AppCard>
-                  ))}
-                </div>
-              )}
+              {/* {answers?.vocabulary && ( */}
+              {/*  <div className="space-y-4"> */}
+              {/*    <h3 className="text-lg font-semibold">Vocabulary</h3> */}
+              {/*    {questions.vocabulary.map((question, index) => ( */}
+              {/*      <AppCard key={index} className="space-y-4 p-4"> */}
+              {/*        <div> */}
+              {/*          <p className="mb-2 text-sm font-medium text-gray-600">Question:</p> */}
+              {/*          <p>{question.text}</p> */}
+              {/*        </div> */}
+              {/*        <div> */}
+              {/*          <p className="mb-2 text-sm font-medium text-gray-600">Your Answer:</p> */}
+              {/*          <div */}
+              {/*            className={`flex items-center gap-2 ${answers.vocabulary[index].isCorrect ? 'text-green-600' : 'text-red-600'}`} */}
+              {/*          > */}
+              {/*            {answers.vocabulary[index].isCorrect ? ( */}
+              {/*              <Check className="size-4" /> */}
+              {/*            ) : ( */}
+              {/*              <X className="size-4" /> */}
+              {/*            )} */}
+              {/*            <p>{answers.vocabulary[index].selectedAnswer}</p> */}
+              {/*          </div> */}
+              {/*          {!answers.vocabulary[index].isCorrect && ( */}
+              {/*            <div className="mt-2 flex items-center gap-2 text-green-600"> */}
+              {/*              <Check className="size-4" /> */}
+              {/*              <p>Correct answer: {question.answer}</p> */}
+              {/*            </div> */}
+              {/*          )} */}
+              {/*        </div> */}
+              {/*      </AppCard> */}
+              {/*    ))} */}
+              {/*  </div> */}
+              {/* )} */}
 
               {/* Grammar Section */}
               {answers?.grammar && (
                 <div className="space-y-4">
                   <h3 className="text-lg font-semibold">Grammar</h3>
                   {questions.grammar.map((question, index) => (
+                    // eslint-disable-next-line react/no-array-index-key
                     <AppCard key={index} className="space-y-4 p-4">
                       <div>
                         <p className="mb-2 text-sm font-medium text-gray-600">Question:</p>
@@ -218,9 +219,10 @@ const TestResults: React.FC<TestResultsProps> = ({
                   <AppCard className="space-y-6 p-4">
                     <div>
                       <p className="mb-2 text-sm font-medium text-gray-600">Passage:</p>
-                      <p className="text-sm">{questions.reading.passage}</p>
+                      <p className="text-sm">{questions.vocabulary.passage}</p>
                     </div>
-                    {questions.reading.questions.map((question, index) => (
+                    {questions.vocabulary.questions.map((question, index) => (
+                      // eslint-disable-next-line react/no-array-index-key
                       <div key={index} className="space-y-4 border-t pt-4">
                         <div>
                           <p className="mb-2 text-sm font-medium text-gray-600">Question {index + 1}:</p>
