@@ -5,7 +5,7 @@ import AppSelect from '@/components/AppSelect/AppSelect';
 import AppCheckbox from '@/components/AppCheckbox/AppCheckbox';
 import AppLabel from '@/components/AppLabel/AppLabel';
 
-const languageLevels = ['Beginner', 'Pre-Intermediate', 'Intermediate', 'Upper-Intermediate', 'Advanced'];
+// const languageLevels = ['Beginner', 'Pre-Intermediate', 'Intermediate', 'Upper-Intermediate', 'Advanced'];
 
 const professions = [
   'UI/UX designer',
@@ -23,7 +23,7 @@ const professions = [
 const hobbies = ['cinema', 'books', 'sports', 'technologies', 'traveling', 'music'];
 
 const InitialQuestions: React.FC<{ handleComplete: () => void }> = ({ handleComplete }) => {
-  const [languageLevel, setLanguageLevel] = useState('');
+  // const [languageLevel, setLanguageLevel] = useState('');
   const [profession, setProfession] = useState('');
   const [selectedHobbies, setSelectedHobbies] = useState<string[]>([]);
 
@@ -39,7 +39,7 @@ const InitialQuestions: React.FC<{ handleComplete: () => void }> = ({ handleComp
     });
   };
 
-  const isFormValid = languageLevel && profession && selectedHobbies.length === 3;
+  const isFormValid = profession && selectedHobbies.length === 3;
 
   return (
     <div>
@@ -51,21 +51,21 @@ const InitialQuestions: React.FC<{ handleComplete: () => void }> = ({ handleComp
       </div>
 
       <div className="mx-auto mt-8 max-w-md space-y-6 px-4">
-        <div className="space-y-2">
-          <AppLabel>Estimated language level</AppLabel>
-          <AppSelect value={languageLevel} onValueChange={setLanguageLevel}>
-            <AppSelect.Trigger className="w-full">
-              <AppSelect.Value placeholder="Choose language level" />
-            </AppSelect.Trigger>
-            <AppSelect.Content>
-              {languageLevels.map(level => (
-                <AppSelect.Item key={level} value={level}>
-                  {level}
-                </AppSelect.Item>
-              ))}
-            </AppSelect.Content>
-          </AppSelect>
-        </div>
+        {/* <div className="space-y-2"> */}
+        {/*  <AppLabel>Estimated language level</AppLabel> */}
+        {/*  <AppSelect value={languageLevel} onValueChange={setLanguageLevel}> */}
+        {/*    <AppSelect.Trigger className="w-full"> */}
+        {/*      <AppSelect.Value placeholder="Choose language level" /> */}
+        {/*    </AppSelect.Trigger> */}
+        {/*    <AppSelect.Content> */}
+        {/*      {languageLevels.map(level => ( */}
+        {/*        <AppSelect.Item key={level} value={level}> */}
+        {/*          {level} */}
+        {/*        </AppSelect.Item> */}
+        {/*      ))} */}
+        {/*    </AppSelect.Content> */}
+        {/*  </AppSelect> */}
+        {/* </div> */}
 
         <div className="space-y-2">
           <AppLabel>Future profession</AppLabel>

@@ -29,7 +29,7 @@ const WritingSection: React.FC<WritingSectionProps> = ({ onNext, question }) => 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="mb-4 text-2xl font-semibold">Part 4 – Writing</h1>
+        <h1 className="mb-4 text-2xl font-semibold">Part 3 – Writing</h1>
         <p className="text-gray-600">Write a response to the following prompt:</p>
       </div>
 

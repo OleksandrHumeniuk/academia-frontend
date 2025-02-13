@@ -7,7 +7,7 @@ import SingleChoiceSection from '../sections/SingleChoiceSection';
 import ReadingSection from '../sections/ReadingSection';
 import WritingSection from '@/templates/TestFlow/sections/WritingSection';
 import ConversationSection from '../sections/ConversationSection';
-import useAudio from '@/hooks/useAudio/useAudio';
+// import useAudio from '@/hooks/useAudio/useAudio';
 import { MOCK_QUESTIONS } from '@/constants/questions';
 
 const TEST_TIMER = 30 * 60; // 30 minutes
@@ -18,7 +18,7 @@ export type TestFlowQuestionProps = {
 };
 
 const TestFlowQuestions: React.FC<TestFlowQuestionProps> = ({ activeStep, onNextStep }) => {
-  const { playAudio } = useAudio();
+  // const { playAudio } = useAudio();
 
   useEffect(() => {}, []);
 
@@ -47,7 +47,7 @@ const TestFlowQuestions: React.FC<TestFlowQuestionProps> = ({ activeStep, onNext
     }
 
     onNextStep();
-    playAudio('/audio/good-job.mp3');
+    // playAudio('/audio/good-job.mp3');
   };
 
   const renderSection = () => {

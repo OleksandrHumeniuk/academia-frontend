@@ -49,7 +49,7 @@ const SingleChoiceSection: React.FC<SingleChoiceSectionProps> = ({
     <div className="space-y-8">
       <div>
         <h1 className="mb-4 text-2xl font-semibold">
-          {type === 'vocabulary' ? 'Part 1 - Vocabulary' : 'Part 2 - Grammar'}
+          {type === 'vocabulary' ? 'Part 2 - Vocabulary' : 'Part 1 - Grammar'}
         </h1>
         <p className="text-gray-600">
           Question {activeQuestionIndex + 1} of {questions.length}

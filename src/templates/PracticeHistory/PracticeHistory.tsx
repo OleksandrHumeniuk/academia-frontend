@@ -4,6 +4,7 @@ import { Calendar, ChevronRight } from 'lucide-react';
 import AppCard from '@/components/AppCard/AppCard';
 import AppButton from '@/components/AppButton/AppButton';
 import CommunicatingPractice from './CommunicatingPractice';
+import SpeakingPractice from '@/templates/SpeakingPractice/SpeakingPractice.tsx';
 
 type PracticeHistoryEntry = {
   id: string;
@@ -20,9 +21,10 @@ const mockHistory: PracticeHistoryEntry[] = [
 const PracticeHistory: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [isAgentModalOpen, setIsAgentModalOpen] = useState(false);
+
   const handleNewSession = () => {
-    // TODO: Implement new session recording
-    console.log('Starting new session');
+    setIsAgentModalOpen(true);
   };
 
   const renderPracticeComponent = () => {
@@ -68,6 +70,7 @@ const PracticeHistory: React.FC = () => {
       </div>
 
       {isModalOpen && renderPracticeComponent()}
+      {isAgentModalOpen && <SpeakingPractice open={isAgentModalOpen} onClose={() => setIsAgentModalOpen(false)} />}
     </main>
   );
 };

@@ -40,7 +40,7 @@ const ReadingSection: React.FC<ReadingSectionProps> = ({ question, onNext }) => 
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="mb-4 text-2xl font-semibold">Part 3 – Reading</h1>
+        <h1 className="mb-4 text-2xl font-semibold">Part 2 – Reading</h1>
         <p className="text-gray-600">
           Question {currentQuestion + 1} of {question.questions.length}
         </p>

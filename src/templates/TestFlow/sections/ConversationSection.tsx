@@ -18,7 +18,7 @@ const ConversationSection: React.FC<ConversationSectionProps> = ({ onNext }: Con
 
   return (
     <div className="space-y-8">
-      <h1 className="mb-4 text-2xl font-semibold">Part 5 – Conversation</h1>
+      <h1 className="mb-4 text-2xl font-semibold">Part 4 – Conversation</h1>
 
       <div className="relative mx-auto mt-8 size-[350px] h-auto max-w-full">
         <AppButton

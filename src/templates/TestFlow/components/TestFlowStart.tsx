@@ -1,7 +1,7 @@
 import React from 'react';
 
 import AppButton from '@/components/AppButton/AppButton';
-import useAudio from '@/hooks/useAudio/useAudio';
+// import useAudio from '@/hooks/useAudio/useAudio';
 import gif from '@/assets/ai.gif';
 
 export type TestFlowStartProps = {
@@ -9,10 +9,11 @@ export type TestFlowStartProps = {
 };
 
 const TestFlowStart: React.FC<TestFlowStartProps> = ({ onStart }) => {
-  const { playAudio } = useAudio();
+  // const { playAudio } = useAudio();
 
   const handleStartTest = (): void => {
-    playAudio('/audio/welcome.mp3', onStart);
+    // playAudio('/audio/welcome.mp3', onStart);
+    onStart();
   };
 
   return (
