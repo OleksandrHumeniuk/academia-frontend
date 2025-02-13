@@ -13,7 +13,7 @@ const SpeakingPractice: React.FC<{ open: boolean; onClose: () => void }> = ({ op
     <AppDialog open={open} onOpenChange={onClose}>
       <AppDialog.Content className="min-h-[600px] w-[800px] bg-white p-8">
         <div className="space-y-4 text-center">
-          <h1 className="text-3xl font-bold">English Proficiency Assessment</h1>
+          <h1 className="text-3xl font-bold">Speaking practice</h1>
           <p className="mx-auto max-w-md text-gray-600">
             You're interviewing for a junior software developer position. I'll be your HR interviewer. Let's go through
             common questions, from introducing yourself to discussing your skills and past projects. Answer naturally
