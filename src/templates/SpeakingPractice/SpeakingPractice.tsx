@@ -1,36 +1,170 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
+import { useConversation } from '@11labs/react';
+import OpenAI from 'openai';
+import { DialogTitle } from '@radix-ui/react-dialog';
 
 import AppDialog from '@/components/AppDialog/AppDialog';
-import AppButton from '@/components/AppButton/AppButton';
-import gif from '@/assets/ai.gif';
+import Agent from './AgentLayout';
+import Chat from './ChatLayout';
+
+const openai = new OpenAI({ apiKey: import.meta.env.VITE_OPENAI_API_KEY as string, dangerouslyAllowBrowser: true });
+
+const GPT_INSTRUCTION = `Analyze the provided conversation in JSON format.
+
+CONTEXT:
+***
+Your task is to analyze the array of messages that form the dialogue between an AI agent and a user. An AI agent asks questions, and the user provides answers to them. Messages of the user may contain mistakes. 
+***
+
+TASK:
+***
+For user answers, identify and highlight this types of mistake:
+grammar,
+stylistic,
+tone of voice or
+contextual mistakes in each message.
+
+Never identify and highlight punctuation and spelling mistakes and never correct any of those mistakes.
+
+For each mistake, provide an explanation in the same message. Output that message inside parentheses () immediately after mistaken word or phrase. Wrap the corrected mistakes and explanation with <span> tags. 
+
+The output should contain all messages with "role": "agent" without any modifications.
+***
+`;
 
 const SpeakingPractice: React.FC<{ open: boolean; onClose: () => void }> = ({ open, onClose }) => {
-  const handleStart = () => {
-    console.log('start');
+  const [isStarted, setIsStarted] = useState<boolean>(false);
+  // const [messages, setMessages] = useState<{ message: string; source: string }[]>([]);
+  const [isAnalysing, setIsAnalysing] = useState<boolean>(false);
+  const [displayChatLayout, setDisplayChatLayout] = useState(false);
+  const [conversationId, setConversationId] = useState('');
+  // const [finalMessages, setFinalMessages] = useState<{ role: string; message: string }[]>([]);
+  const [highlightedMessages, setHighlightedMessages] = useState<{ role: string; message: string }[]>([]);
+
+  const conversation = useConversation({
+    onConnect: () => console.log('Connected'),
+    onDisconnect: () => console.log('Disconnected'),
+    onMessage: (message: { message: string; source: string }) => {
+      console.log('Message:', message);
+      // setMessages(prev => [...prev, message]);
+    },
+    onError: (error: string) => console.error('Error:', error),
+  });
+
+  const startConversation = useCallback(async () => {
+    try {
+      await navigator.mediaDevices.getUserMedia({ audio: true });
+
+      const currentConversationId = await conversation.startSession({
+        agentId: import.meta.env.VITE_ELEVENLABS_AGENT_ID as string,
+      });
+      setConversationId(currentConversationId);
+    } catch (error) {
+      console.error('Failed to start conversation:', error);
+    }
+  }, [conversation]);
+
+  const handleStart = async () => {
+    setIsStarted(true);
+    await startConversation();
+  };
+
+  const getMessages = async () => {
+    const response = await fetch(`https://api.elevenlabs.io/v1/convai/conversations/${conversationId}`, {
+      method: 'GET',
+      headers: {
+        'xi-api-key': import.meta.env.VITE_ELEVENLABS_API_KEY as string,
+      },
+    });
+
+    return response.json();
+  };
+
+  const stopConversation = useCallback(async () => {
+    setIsAnalysing(true);
+    await conversation.endSession();
+    setTimeout(async () => {
+      // console.log('stop conversation');
+      // console.log(messages);
+      const currentMessages = (await getMessages()) as { transcript: unknown[] };
+      // console.log('currentMessages', currentMessages);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      const newMessages = currentMessages?.transcript?.map(({ role, message }: { role: string; message: string }) => ({
+        role,
+        message,
+      })) as { role: string; message: string }[];
+
+      console.log('newMessages', newMessages);
+      // setFinalMessages(newMessages);
+
+      const completion = await openai.chat.completions.create({
+        model: 'gpt-4o',
+        messages: [
+          {
+            role: 'user',
+            content: `
+{
+  "instruction": ${GPT_INSTRUCTION},
+  "input_format": {
+    "conversation": ${JSON.stringify(newMessages)}
+  },
+  "output_format": {
+    "conversation": [
+      {
+        "role": "user",
+        "message": "I <span>has ('has' should be 'have' because 'I' takes 'have')</span> <span>a ('a' should be 'an' before a vowel sound)</span> apple in my bag."
+      },
+      {
+        "role": "agent",
+        "message": "That sounds great! Do you like apples?"
+      }
+    ]
+  }
+}
+`,
+          },
+        ],
+        response_format: { type: 'json_object' },
+        store: true,
+        temperature: 0.5,
+        top_p: 0.5,
+      });
+      // console.log('completion', completion);
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access,@typescript-eslint/no-unsafe-assignment
+      const correctedConversation = JSON.parse(completion?.choices[0]?.message.content)?.conversation;
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      setHighlightedMessages(correctedConversation);
+      localStorage.setItem('completion', JSON.stringify(completion));
+      setIsStarted(false);
+      setIsAnalysing(false);
+      setDisplayChatLayout(true);
+    }, 2000);
+  }, [conversation]);
+
+  const getLabel = () => {
+    if (isAnalysing) return 'Analyzing conversation';
+    if (conversation.isSpeaking) return 'Speaking';
+    return 'Listening';
   };
 
   return (
     <AppDialog open={open} onOpenChange={onClose}>
-      <AppDialog.Content className="min-h-[600px] w-[800px] bg-white p-8">
-        <div className="space-y-4 text-center">
-          <h1 className="text-3xl font-bold">Speaking practice</h1>
-          <p className="mx-auto max-w-md text-gray-600">
-            You're interviewing for a junior software developer position. I'll be your HR interviewer. Let's go through
-            common questions, from introducing yourself to discussing your skills and past projects. Answer naturally
-            and confidently. Ready to begin?
-          </p>
-        </div>
-
-        <div className="relative mx-auto mt-8 size-[350px] h-auto max-w-full">
-          <AppButton
-            variant="outline"
-            className="absolute left-1/2 top-1/2 w-[180px] -translate-x-1/2 -translate-y-1/2 rounded-3xl"
-            onClick={handleStart}
-          >
-            Start the test
-          </AppButton>
-          <img src={gif} alt="Ai gif" />
-        </div>
+      <AppDialog.Content aria-describedby={undefined} className="min-h-[600px] w-[800px] bg-white p-8">
+        <DialogTitle />
+        {displayChatLayout ? (
+          <Chat onClose={onClose} messages={highlightedMessages} />
+        ) : (
+          <Agent
+            isStarted={isStarted}
+            isAnalysing={isAnalysing}
+            handleStart={handleStart}
+            getLabel={getLabel}
+            stopConversation={stopConversation}
+          />
+        )}
       </AppDialog.Content>
     </AppDialog>
   );
