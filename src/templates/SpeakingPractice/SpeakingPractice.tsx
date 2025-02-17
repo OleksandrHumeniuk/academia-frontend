@@ -28,7 +28,27 @@ Never identify and highlight punctuation and spelling mistakes and never correct
 
 For each mistake, provide an explanation in the same message. Output that message inside parentheses () immediately after mistaken word or phrase. Wrap the corrected mistakes and explanation with <span> tags. 
 
-The output should contain all messages with "role": "agent" without any modifications.
+The output should consist of only a plain string formatted as JSON object (without \`\`\`json\`\`\`) and contain all messages with "role": "agent" without any modifications.
+***
+
+EXAMPLE OF CORRECTION:
+***
+      {
+        "role": "user",
+        "message": "I <span>has(The verb "has" is incorrect because the subject "I" requires "have" instead)</span> a background in software testing with a focus on web applications."
+      },
+      {
+        "role": "user",
+        "message": "The project deadline is next week, so <span>let’s hustle and get this thing wrapped up ASAP!(The phrase "let’s hustle" and "get this thing wrapped up ASAP" are too informal and casual for a professional setting. While the sentence conveys urgency, it lacks professionalism. Better version: so let’s ensure we complete all tasks on time and meet our commitments)</span>."
+      },
+      {
+        "role": "user",
+        "message": "Our marketing strategy must be adjusted immediately, <span>or else we’re totally screwed(The phrase "or else we’re totally screwed" is too informal and unprofessional for a business or professional setting. Better version “or we risk significant negative consequences”)</span>."
+      },
+      {
+        "role": "user",
+        "message": "<span>The blockchain was originally developed by Google(Blockchain was first introduced in 2008 by an anonymous person or group known as Satoshi Nakamoto as the underlying technology for Bitcoin. Google had no role in its development)</span> to improve data security in cloud computing."
+      }
 ***
 `;
 
